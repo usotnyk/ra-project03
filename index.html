@@ -4,10 +4,11 @@
  <meta charset="utf-8">
  <meta http-equiv="X-UA-Compatible" content="IE=edge">
  <meta name="viewport" content="width=device-width, initial-scale=1">
- <title>Aloha Apparel Co.</title>
+ <title>Best Buy Reseller</title>
 <!--Javascript!-->
  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
  <script src="https://unpkg.com/flickity@2/dist/flickity.pkgd.min.js"></script>
+ <script type="text/javascript" src="/bundle.js"></script>
 <!-- CSS!-->
 <link href="https://fonts.googleapis.com/css?family=Lato:300,400,400i,700,900|Titillium+Web:300,300i,400,400i,700,700i" rel="stylesheet">
 <link rel="stylesheet" href="assets/font-awesome-4.7.0/css/font-awesome.min.css">
@@ -43,9 +44,10 @@
 <!--Jumbotron!-->
 
   <header class="jumbotron flex just-center white">
-    <div class="center-content center-text align-self-center">
-      <p class="margin-sm">Want to buy</p>
-      <h1 class="margin-sm">COOL STUFF FROM BEST BUY?</h1>
+    <div class="center-content align-self-center">
+      <p>Want to buy</p>
+      <h1>COOL STUFF FROM BEST BUY?</h1>
+      <button>CLICK ME</button>
     </div>
   </header>
 
@@ -254,53 +256,6 @@
 <!--Javascript!-->
 
 <script type="text/javascript">
-
-//Subscribe Alert
-$(document ).ready(function() {
-  var emailForm = document.getElementById("emailForm");
-
-  emailForm.addEventListener("submit", onSubmitEmailForm, false);
-});
-
-  function onSubmitEmailForm (eventObject) {
-    window.alert("Thank you for subscribing to our updates!")
-}
-
-//Smooth Scrolling
-
-$(document).ready(function(){
-  // Add smooth scrolling to all links
-  $(".smooth-scroll").on('click', function(event) {
-
-    if (this.hash !== "") {
-      // Prevent default anchor click behavior
-      event.preventDefault();
-
-      // Store hash
-      var hash = this.hash;
-
-      // Using jQuery's animate() method to add smooth page scroll
-      $('html, body').animate({
-        scrollTop: $(hash).offset().top
-      }, 800, function(){
-   
-        // Add hash (#) to URL when done scrolling (default click behavior)
-        window.location.hash = hash;
-      });
-    } // End if
-  });
-
-//Slider - Flickity
-
-  $('.main-carousel').flickity({
-  // options
-  cellAlign: 'left',
-  contain: true,
-  freeScroll: true,
-  wrapAround: true
-  });
-
-});
 
 </script>
 </html>
