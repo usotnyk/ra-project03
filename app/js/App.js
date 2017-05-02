@@ -7,9 +7,9 @@ export default class App{
 
     console.log("this cart belongs to " + owner);
     let BBCart = new Cart ("BBCart");
-    BBCart.totalCost(2, 5);
+    BBCart.totalCost(5, 5);
 
-    let mainJS = new MainFunctionality();
+    let mainJS = new MainFunctionality(); //calling main functionality Object constructor;
   }
 
 };
