@@ -4,9 +4,8 @@ import BBService from './BBService';
 
 export default class App {
   constructor() {
-    console.log("app constructor");
     this.loadData();
-    console.log("after loadData");
+    this.addMainFunctionality();
   }
 
   loadData() {
@@ -26,5 +25,10 @@ export default class App {
 
   onError() {
 
+  }
+
+  addMainFunctionality () {
+    let mainFunctionality = new MainFunctionality();
+    console.log("mainFunctionality is executing");
   }
 };

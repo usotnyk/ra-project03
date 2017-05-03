@@ -99,9 +99,8 @@ var App = function () {
   function App() {
     _classCallCheck(this, App);
 
-    console.log("app constructor");
     this.loadData();
-    console.log("after loadData");
+    this.addMainFunctionality();
   }
 
   _createClass(App, [{
@@ -125,6 +124,12 @@ var App = function () {
   }, {
     key: 'onError',
     value: function onError() {}
+  }, {
+    key: 'addMainFunctionality',
+    value: function addMainFunctionality() {
+      var mainFunctionality = new _main2.default();
+      console.log("mainFunctionality is executing");
+    }
   }]);
 
   return App;
@@ -153,7 +158,6 @@ var BBService = function () {
     _classCallCheck(this, BBService);
 
     this.url = url;
-    console.log("bbservice constructor");
   }
 
   _createClass(BBService, [{
@@ -168,11 +172,7 @@ var BBService = function () {
         var readyState = target.readyState;
         var httpStatus = target.status;
 
-        console.log("readyState is " + readyState);
-        console.log("httpStatus is " + httpStatus);
-
         if (e.target.readyState == 4) {
-          console.log("processing results");
           _this.processData(e, onSuccess, onError);
         }
       }, false);
@@ -183,9 +183,6 @@ var BBService = function () {
   }, {
     key: "processData",
     value: function processData(e, onSuccess, onError) {
-      console.log(e);
-      console.log("e.target.status is " + e.target.status);
-
       if (e.target.status == 200) {
         onSuccess(this.getDataFrom(e));
       } else {
@@ -239,9 +236,9 @@ var _App2 = _interopRequireDefault(_App);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var app = new _App2.default(); //importing neseccary files
+console.log("I am in index.js"); //importing neseccary files
 
-console.log("sdgf");
+var app = new _App2.default();
 
 /***/ }),
 /* 4 */
@@ -254,57 +251,56 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
-var MainFunctionality = function MainFunctionality() {
-  _classCallCheck(this, MainFunctionality);
+var MainFunctionality = function () {
+  function MainFunctionality() {
+    _classCallCheck(this, MainFunctionality);
 
-  //Subscribe Alert
-  $(document).ready(function () {
-    var emailForm = document.getElementById("emailForm");
+    $(document).ready(function () {
+      var emailForm = document.getElementById("emailForm");
 
-    emailForm.addEventListener("submit", onSubmitEmailForm, false);
-  });
+      emailForm.addEventListener("submit", onSubmitEmailForm, false);
+    });
 
-  function onSubmitEmailForm(eventObject) {
-    window.alert("Thank you for subscribing to our updates!");
+    function onSubmitEmailForm(eventObject) {
+      window.alert("Thank you for subscribing to our updates!");
+    }
+
+    $(document).ready(function () {
+      $(".smooth-scroll").on('click', function (event) {
+
+        if (this.hash !== "") {
+          event.preventDefault();
+          var hash = this.hash;
+
+          $('html, body').animate({
+            scrollTop: $(hash).offset().top
+          }, 800, function () {
+
+            window.location.hash = hash;
+          });
+        }
+      });
+
+      $('.main-carousel').flickity({
+        cellAlign: 'left',
+        contain: true,
+        freeScroll: true,
+        wrapAround: true
+      });
+    });
   }
 
-  //Smooth Scrolling
+  _createClass(MainFunctionality, [{
+    key: "addMainFunctionality",
+    value: function addMainFunctionality() {}
+  }]);
 
-  $(document).ready(function () {
-    // Add smooth scrolling to all links
-    $(".smooth-scroll").on('click', function (event) {
-
-      if (this.hash !== "") {
-        // Prevent default anchor click behavior
-        event.preventDefault();
-
-        // Store hash
-        var hash = this.hash;
-
-        // Using jQuery's animate() method to add smooth page scroll
-        $('html, body').animate({
-          scrollTop: $(hash).offset().top
-        }, 800, function () {
-
-          // Add hash (#) to URL when done scrolling (default click behavior)
-          window.location.hash = hash;
-        });
-      } // End if
-    });
-
-    //Slider - Flickity
-
-    $('.main-carousel').flickity({
-      // options
-      cellAlign: 'left',
-      contain: true,
-      freeScroll: true,
-      wrapAround: true
-    });
-  });
-};
+  return MainFunctionality;
+}();
 
 exports.default = MainFunctionality;
 ;
