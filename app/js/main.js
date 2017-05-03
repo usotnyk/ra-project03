@@ -1,5 +1,6 @@
 export default class MainFunctionality {
   constructor(){
+  
 
     //Subscribe Alert
     $(document ).ready(function() {

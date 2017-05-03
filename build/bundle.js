@@ -63,7 +63,7 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 2);
+/******/ 	return __webpack_require__(__webpack_require__.s = 3);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -77,27 +77,58 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _Cart = __webpack_require__(1);
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _Cart = __webpack_require__(2);
 
 var _Cart2 = _interopRequireDefault(_Cart);
 
-var _main = __webpack_require__(3);
+var _main = __webpack_require__(4);
 
 var _main2 = _interopRequireDefault(_main);
+
+var _BBService = __webpack_require__(1);
+
+var _BBService2 = _interopRequireDefault(_BBService);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
-var App = function App(owner) {
-  _classCallCheck(this, App);
+var App = function () {
+  function App() {
+    _classCallCheck(this, App);
 
-  console.log("this cart belongs to " + owner);
-  var BBCart = new _Cart2.default("BBCart");
-  BBCart.totalCost(5, 5);
+    console.log("app constructor");
+    this.loadData();
+    console.log("after loadData");
+  }
 
-  var mainJS = new _main2.default(); //calling main functionality Object constructor;
-};
+  _createClass(App, [{
+    key: 'loadData',
+    value: function loadData() {
+      var service = new _BBService2.default("https://api.bestbuy.com/v1/products((categoryPath.id=abcat0502000))?apiKey=SXkiDh8lcFEAqyG6rDmJjlH4&sort=description.asc&show=accessories.sku,addToCartUrl,categoryPath.id,description,details.name,details.value,dollarSavings,features.feature,image,longDescription,manufacturer,mobileUrl,modelNumber,name,onlineAvailability,onSale,percentSavings,regularPrice,salePrice,shortDescription,sku,thumbnailImage,type,upc,url&format=json");
+      service.loadData(this.onDataLoaded.bind(this), this.onError);
+    }
+  }, {
+    key: 'onDataLoaded',
+    value: function onDataLoaded(data) {
+      var products = this.mapDataToProducts(data);
+      console.log(products);
+    }
+  }, {
+    key: 'mapDataToProducts',
+    value: function mapDataToProducts(data) {
+      console.log(data);
+      return data.products;
+    }
+  }, {
+    key: 'onError',
+    value: function onError() {}
+  }]);
+
+  return App;
+}();
 
 exports.default = App;
 ;
@@ -110,39 +141,93 @@ exports.default = App;
 
 
 Object.defineProperty(exports, "__esModule", {
-    value: true
+  value: true
 });
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
-var Cart = function () {
-    function Cart(cartName) {
-        _classCallCheck(this, Cart);
+var BBService = function () {
+  function BBService(url) {
+    _classCallCheck(this, BBService);
 
-        console.log(cartName + " is imported from cart.js");
-        this.init();
-    }
+    this.url = url;
+    console.log("bbservice constructor");
+  }
 
-    _createClass(Cart, [{
-        key: "init",
-        value: function init() {
-            this.totalCost = function (amount, price) {
-                var totalCost = amount * price;
-                console.log(totalCost);
-            };
+  _createClass(BBService, [{
+    key: "loadData",
+    value: function loadData(onSuccess, onError) {
+      var _this = this;
+
+      var serviceChannel = new XMLHttpRequest();
+
+      serviceChannel.addEventListener("readystatechange", function (e) {
+        var target = e.target;
+        var readyState = target.readyState;
+        var httpStatus = target.status;
+
+        console.log("readyState is " + readyState);
+        console.log("httpStatus is " + httpStatus);
+
+        if (e.target.readyState == 4) {
+          console.log("processing results");
+          _this.processData(e, onSuccess, onError);
         }
-    }]);
+      }, false);
 
-    return Cart;
+      serviceChannel.open("GET", this.url, true);
+      serviceChannel.send();
+    }
+  }, {
+    key: "processData",
+    value: function processData(e, onSuccess, onError) {
+      console.log(e);
+      console.log("e.target.status is " + e.target.status);
+
+      if (e.target.status == 200) {
+        onSuccess(this.getDataFrom(e));
+      } else {
+        onError();
+      }
+    }
+  }, {
+    key: "getDataFrom",
+    value: function getDataFrom(e) {
+      var target = e.target;
+      var theData = target.responseText;
+      return JSON.parse(theData);
+    }
+  }]);
+
+  return BBService;
 }();
+
+exports.default = BBService;
+
+/***/ }),
+/* 2 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+var Cart = function Cart() {
+    _classCallCheck(this, Cart);
+};
 
 exports.default = Cart;
 ;
 
 /***/ }),
-/* 2 */
+/* 3 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -154,10 +239,12 @@ var _App2 = _interopRequireDefault(_App);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var app = new _App2.default("Jason"); //importing neseccary files
+var app = new _App2.default(); //importing neseccary files
+
+console.log("sdgf");
 
 /***/ }),
-/* 3 */
+/* 4 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
