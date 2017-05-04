@@ -1,4 +1,9 @@
-bexport default class MainFunctionality {
+import $ from 'jquery';
+import Flickity from 'flickity';
+
+
+export default class MainFunctionality {
+
   constructor(){
     $(document).ready(function() {
         var emailForm = document.getElementById("emailForm");
@@ -27,12 +32,19 @@ bexport default class MainFunctionality {
           }
         });
 
-      $('.main-carousel').flickity({
+        let elem = document.querySelector('.main-carousel');
+        let flkty = new Flickity( elem, {
+        // options
+        cellAlign: 'left',
+        contain: true
+        });
+
+      /*$('.main-carousel').flickity({
         cellAlign: 'left',
         contain: true,
         freeScroll: true,
         wrapAround: true
-      });
+      });*/
 
     });
 
