@@ -1,4 +1,4 @@
-export default class MainFunctionality {
+bexport default class MainFunctionality {
   constructor(){
     $(document).ready(function() {
         var emailForm = document.getElementById("emailForm");
@@ -36,11 +36,6 @@ export default class MainFunctionality {
 
     });
 
-  }
-
-  addMainFunctionality() {
-  
-    
   }
 };
 
