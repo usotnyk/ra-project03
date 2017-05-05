@@ -32,19 +32,7 @@ export default class MainFunctionality {
           }
         });
 
-        let elem = document.querySelector('.main-carousel');
-        let flkty = new Flickity( elem, {
-        // options
-        cellAlign: 'left',
-        contain: true
-        });
 
-      /*$('.main-carousel').flickity({
-        cellAlign: 'left',
-        contain: true,
-        freeScroll: true,
-        wrapAround: true
-      });*/
 
     });
 

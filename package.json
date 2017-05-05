@@ -3,12 +3,16 @@
   "version": "1.0.0",
   "description": "Building shopping cart",
   "main": "webpack.config.js",
-  "dependencies": {},
+  "dependencies": {
+    "flickity": "^2.0.5",
+    "jquery": "^3.2.1"
+  },
   "devDependencies": {
     "babel-core": "^6.24.1",
     "babel-loader": "^7.0.0",
     "babel-preset-env": "^1.4.0",
     "concurrently": "^3.4.0",
+    "jquery": "^3.2.1",
     "webpack": "^2.4.1",
     "webpack-dev-server": "^2.4.5"
   },

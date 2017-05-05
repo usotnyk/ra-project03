@@ -5,9 +5,7 @@
  <meta http-equiv="X-UA-Compatible" content="IE=edge">
  <meta name="viewport" content="width=device-width, initial-scale=1">
  <title>Best Buy Reseller</title>
-<!--Javascript!-->
- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
- <script src="https://unpkg.com/flickity@2/dist/flickity.pkgd.min.js"></script>
+
  <script type="text/javascript" src="/bundle.js"></script>
 <!-- CSS!-->
 <link href="https://fonts.googleapis.com/css?family=Lato:300,400,400i,700,900|Titillium+Web:300,300i,400,400i,700,700i" rel="stylesheet">
@@ -96,103 +94,33 @@
 </div> <!--Grid div closing!-->
 
 
+<!--Carousel-->
   <h2 class="center-text" id="products">Most-Loved Products</h2>
-  <div class="main-carousel">
-    <div class="carousel-cell">
-      <div class="center-text">
-        <a href="">
-          <img src="" alt="dress">
-          <p>DRESSES</p>
-          <h3 class="green">Stretch Knit Dress</h3>
-          <p>$169.00</p>
-          <button id="view-btn" class="view-btn">Quick View</button>
-          <button id="cart-btn" class="cart-btn">Add to Cart</button>
-        </a>
-      </div>
-    </div>
-    <div class="carousel-cell">
-      <div class="center-text">
-        <a href="">
-          <img src="" alt="shirt">
-          <p>SHIRTS</p>
-          <h3 class="green">Cotton Blue Shirt</h3>
-          <p>$89.00</p>
-        </a>
-      </div>
-    </div>
-    <div class="carousel-cell">
-    <div  class="center-text">
-      <a href="">
-        <img src="" alt="dress">
-        <p>DRESSES</p>
-        <h3 class="green">Checked Stretch Dress</h3>
-        <p>$129.00</p>
-      </a>
-    </div>
-    </div>
-    <div class="carousel-cell">
-      <div class="center-text">
-        <a href="">
-          <img src="" alt="backpack">
-          <p>BAGS</p>
-          <h3 class="green">Blue Hipster Backpack</h3>
-          <p>$69.00</p>
-        </a>
-      </div>
-    </div>
-    <div class="carousel-cell">
-      <div class="center-text">
-        <a href="">
-          <img src="" alt="dress">
-          <p>DRESSES</p>
-          <h3 class="green">Blue Silk Dress</h3>
-          <p>$129.00</p>
-        </a>
-      </div>
-    </div>
+  <section id="flickity-carousel" class="center-text"></section>
+<!--End Carousel-->
 
-    <div class="carousel-cell">
-      <div class="center-text">
-        <a href="">
-          <img src="" alt="tshirt">
-          <p>TSHIRTS</p>
-          <h3 class="green">Cotton Yellow Tshirt</h3>
-          <p>$49.00</p>
-        </a>
-      </div>
-    </div>
 
-    <div class="carousel-cell">
-      <div class="center-text">
-        <a href="">
-          <img src="" alt="shorts">
-          <p>SHORTS</p>
-          <h3 class="green">Denim Overall Shorts</h3>
-          <p>$99.00</p>
-        </a>
-      </div>
-    </div>
-
-    <div class="carousel-cell">
-      <div class="center-text">
-        <a href="">
-          <img src="" alt="dress">
-          <p>DRESSES</p>
-          <h3 class="green">Pink Dotted Dress</h3>
-          <p>$119.00</p>
-        </a>
-      </div>
-    </div>
-
-  </div> <!--End of main-carousel div!-->
 
 <!--Modals-->
-  <div id="view-modal" class="modal">
+<div id="view-modal" class="modal">
 
   <!-- Modal content -->
   <div class="modal-content">
-    <span class="close">&times;</span>
-    <p>Some text in the Modal..</p>
+    <span id="close">&times;</span>
+    <div  id="inner-modal"> 
+<!--  <section class="flex wrap">
+        <img src="/assets/images/blue-silk-dress.jpg">
+        <div>
+          <h3>MacBook</h3>
+          <h4>$1500</h4>
+          <button>ADD TO CART</button>
+        </div>
+      </section>
+      <section>
+        <h3>SomeDescription here</h3>
+        <p>It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English.</p>
+      </section>-->
+    </div>
   </div>
 
 </div>
@@ -267,7 +195,7 @@
 <!--Javascript!-->
 
 <script type="text/javascript">
-
+/*
   //Modals
     // Get the modal
     var modal = document.getElementById('view-modal');
@@ -299,6 +227,6 @@
             modal.style.display = "none";
         }
     }
-
+*/
 </script>
 </html>
