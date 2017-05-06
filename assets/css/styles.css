@@ -223,13 +223,17 @@ nav {
     margin: 15% auto; /* 15% from the top and centered */
     padding: 20px;
     border: 1px solid #888;
-    width: 80%; /* Could be more or less, depending on screen size */
+    width: 70%; /* Could be more or less, depending on screen size */
+}
+
+.modal-content h4 {
+  padding: 10px 0;
 }
 
 /* The Close Button */
 .close {
     color: #aaa;
-    float: right;
+    float: left;
     font-size: 28px;
     font-weight: bold;
 }
@@ -309,7 +313,8 @@ nav li {
 .cart-btn {
   background: #359520;
   border: 2px solid #359520;
-  margin-left: 0;
+  margin-left: 15px 0;
+  color: white;
 }
 
 /*Links */

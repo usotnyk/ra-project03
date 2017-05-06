@@ -25,7 +25,6 @@ export default class CarouselView {
 
     }
     this.createCarousel(startDiv);
-    console.log(startDiv);
   }
 
   createCellContent(cellContainer, currentProduct) {
@@ -80,32 +79,27 @@ export default class CarouselView {
     let newCartButton = document.createElement("button");
     newCartButton.setAttribute("data-sku", `${currentProduct["sku"]}`);
     newCartButton.setAttribute("class", "cart-btn");
-    newCartButton.setAttribute("id", `cart${currentProduct["sku"]}`)
+    newCartButton.setAttribute("id", `cartCarousel${currentProduct["sku"]}`);
     newCartButton.appendChild(document.createTextNode("ADD TO CART"));
     //newCartButton.addEventListener("click",this.onClickAddToCart.bind(this),false);
     return newCartButton;
   }
 
-onClickOpenQuickView(e) {
-  console.log(e.target.getAttribute("data-sku"));
-  let productView = new ProductView(e.target.getAttribute("data-sku"), this.products.productList);
-  productView.buildProductView();
-}
-
-  createCarousel(node) {
-      document.getElementById("flickity-carousel").appendChild(node);
-
-
-      let elem = document.querySelector('.main-carousel');
-      let flkty = new Flickity( elem, {
-      // options
-      //cellAlign: 'left',
-      contain: true
-      });
-  
-  
+  onClickOpenQuickView(e) {
+    //console.log(e.target.getAttribute("data-sku"));
+    let productView = new ProductView(e.target.getAttribute("data-sku"), this.products.productList);
+    productView.buildProductView();
   }
 
+  createCarousel(node) {
+    document.getElementById("flickity-carousel").appendChild(node);
+
+
+    let elem = document.querySelector('.main-carousel');
+    let flkty = new Flickity( elem, {
+    contain: true
+    });
+  }
 
 }
 
