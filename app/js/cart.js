@@ -48,7 +48,7 @@ export default class Cart {
         let qtyValue = this.ss.getItem(skuKey);
         newTotalQty += parseInt(qtyValue);
       }
-        console.log(newTotalQty);
+        //console.log(newTotalQty);
       
         this.notifyQuantityChanged(newTotalQty);
     }
@@ -57,6 +57,23 @@ export default class Cart {
       if(this.onQuantityChangedEventListener != null) {
         this.onQuantityChangedEventListener(qty);
       }
+    }
+
+    clearCart(e) {
+      this.cart.ss.clear();  
+      this.cart.notifyQuantityChanged(0);
+      let innerModalCart = document.getElementById('inner-modal-cart');
+      this.displayEmptyCart(innerModalCart);
+    }
+
+    getTotalQty() {
+      let newTotalQty = 0;
+      for (let i = 0; i < this.ss.length; i++) {
+        let skuKey = this.ss.key(i);
+        let qtyValue = this.ss.getItem(skuKey);
+        newTotalQty += parseInt(qtyValue);
+      }  
+      return newTotalQty;
     }
 
     getAllItems() {

@@ -37,12 +37,13 @@ export default class ProductView {
     modalContainer.innerHTML ='';
     let newSection = document.createElement("section");
     newSection.setAttribute("class", "flex");
+    modalContainer.appendChild(newSection);
 
     let newImage = document.createElement("img");
     newImage.src = currentProduct.image;
     newImage.setAttribute("class", "modal-img");
     newSection.appendChild(newImage);
-    modalContainer.appendChild(newSection);
+    
 
     let innerDiv = document.createElement("div");
     newSection.appendChild(innerDiv);

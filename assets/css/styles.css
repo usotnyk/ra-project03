@@ -68,6 +68,10 @@ h1 {
   font-size: 2.5em;
 }
 
+h4 {
+  font-size: 1.3em;
+}
+
 p {
   font-size: 1.1em;
   padding: 1.5em;
@@ -243,6 +247,25 @@ nav {
   padding: 10px 0;
 }
 
+#inner-modal-cart p {
+  padding: 5px;
+  width: 40%;
+}
+
+#cart-modal {
+  font-size: 0.7em;
+}
+
+#inner-modal-cart section {
+  padding: 10px 0;
+}
+
+.update-btn, .remove-btn {
+  background: white;
+  border: 2px solid #359520;
+  margin: 3px 0;
+}
+
 /* The Close Button */
 .close {
     color: #aaa;
@@ -261,6 +284,11 @@ nav {
 .modal-img {
   width: 40%;
   height: 40%;
+}
+
+.modal-cart-img {
+  width: 10%;
+  height: 10%;
 }
 
 /*End of Modal*/
@@ -319,7 +347,12 @@ nav li {
 /*Carousel*/
 
 .carousel-cell {
-  width: 100%;
+  width: 200px;
+  height: auto;
+}
+
+.carousel-cell img {
+  width: 70%;
 }
 
 .view-btn {  
@@ -333,6 +366,10 @@ nav li {
   border: 2px solid #359520;
   margin-left: 15px 0;
   color: white;
+}
+
+.image-container {
+  width: 400px;
 }
 
 /*Links */

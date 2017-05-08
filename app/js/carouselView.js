@@ -31,8 +31,11 @@ export default class CarouselView {
   }
 
   createCellContent(cellContainer, currentProduct) {
+    let imageContainer = document.createElement("div");
+    imageContainer.setAttribute("class", "image-container");
+    cellContainer.appendChild(imageContainer);
     let productImage = this.createProductImage(currentProduct);
-    cellContainer.appendChild(productImage);
+    imageContainer.appendChild(productImage);
     cellContainer.appendChild(document.createElement("hr"));
     let productName = this.createProductName(currentProduct);
     cellContainer.appendChild(productName);

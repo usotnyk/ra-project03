@@ -69,7 +69,7 @@ export default class App {
   }
 
   onClickOpenCartView(e) {
-    console.log("onClickOpenCartView is starting");
+    //console.log("onClickOpenCartView is starting");
     let cartView = new CartView(this.cart, this.allProducts.productList);
     cartView.buildCartView();
   }
