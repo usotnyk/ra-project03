@@ -63,7 +63,7 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 11);
+/******/ 	return __webpack_require__(__webpack_require__.s = 13);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -84,7 +84,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/**
   if ( true ) {
     // AMD
     !(__WEBPACK_AMD_DEFINE_ARRAY__ = [
-      __webpack_require__(15)
+      __webpack_require__(17)
     ], __WEBPACK_AMD_DEFINE_RESULT__ = function( matchesSelector ) {
       return factory( window, matchesSelector );
     }.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__),
@@ -322,12 +322,12 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;// Flickity main
   if ( true ) {
     // AMD
     !(__WEBPACK_AMD_DEFINE_ARRAY__ = [
-      __webpack_require__(2),
-      __webpack_require__(6),
+      __webpack_require__(3),
+      __webpack_require__(7),
       __webpack_require__(0),
-      __webpack_require__(18),
-      __webpack_require__(24),
-      __webpack_require__(17)
+      __webpack_require__(20),
+      __webpack_require__(26),
+      __webpack_require__(19)
     ], __WEBPACK_AMD_DEFINE_RESULT__ = function( EvEmitter, getSize, utils, Cell, Slide, animatePrototype ) {
       return factory( window, EvEmitter, getSize, utils, Cell, Slide, animatePrototype );
     }.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__),
@@ -1172,6 +1172,138 @@ return Flickity;
 /* 2 */
 /***/ (function(module, exports, __webpack_require__) {
 
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _cart = __webpack_require__(5);
+
+var _cart2 = _interopRequireDefault(_cart);
+
+var _cartIcon = __webpack_require__(11);
+
+var _cartIcon2 = _interopRequireDefault(_cartIcon);
+
+var _cartView = __webpack_require__(12);
+
+var _cartView2 = _interopRequireDefault(_cartView);
+
+var _main = __webpack_require__(14);
+
+var _main2 = _interopRequireDefault(_main);
+
+var _BBService = __webpack_require__(9);
+
+var _BBService2 = _interopRequireDefault(_BBService);
+
+var _product = __webpack_require__(15);
+
+var _product2 = _interopRequireDefault(_product);
+
+var _allProducts = __webpack_require__(10);
+
+var _allProducts2 = _interopRequireDefault(_allProducts);
+
+var _carouselView = __webpack_require__(4);
+
+var _carouselView2 = _interopRequireDefault(_carouselView);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+var App = function () {
+  function App() {
+    _classCallCheck(this, App);
+
+    this.allProducts = new _allProducts2.default();
+    this.cart = new _cart2.default();
+    this.cartIcon = new _cartIcon2.default(this);
+    //this.cartView = new CartView();
+    this.init();
+  }
+
+  _createClass(App, [{
+    key: 'init',
+    value: function init() {
+      this.loadData();
+      this.addMainFunctionality();
+      this.registerCartViewEventListener();
+      //this.buildCarousel();
+    }
+  }, {
+    key: 'loadData',
+    value: function loadData() {
+      var service = new _BBService2.default("https://api.bestbuy.com/v1/products((categoryPath.id=abcat0502000))?apiKey=SXkiDh8lcFEAqyG6rDmJjlH4&format=json");
+      service.loadData(this.onDataLoaded.bind(this), this.onError);
+    }
+  }, {
+    key: 'onDataLoaded',
+    value: function onDataLoaded(data) {
+      this.allProducts.productList = this.mapDataToProducts(data);
+      var carouselView = new _carouselView2.default(this, this.allProducts);
+      carouselView.buildCarousel();
+    }
+  }, {
+    key: 'mapDataToProducts',
+    value: function mapDataToProducts(data) {
+
+      var dataArray = data.products;
+      var products = Array();
+
+      for (var i = 0; i < dataArray.length; i++) {
+
+        var newProduct = new _product2.default();
+
+        newProduct.sku = dataArray[i].sku;
+        newProduct.name = dataArray[i].name;
+        newProduct.image = dataArray[i].image;
+        newProduct.longDescription = dataArray[i].longDescription;
+        newProduct.shortDescription = dataArray[i].shortDescription;
+        newProduct.regularPrice = dataArray[i].regularPrice;
+
+        products.push(newProduct);
+      }
+      return products;
+    }
+  }, {
+    key: 'onError',
+    value: function onError() {}
+  }, {
+    key: 'addMainFunctionality',
+    value: function addMainFunctionality() {
+      var mainFunctionality = new _main2.default();
+    }
+  }, {
+    key: 'registerCartViewEventListener',
+    value: function registerCartViewEventListener() {
+      var cartIcon = document.getElementById('cart-icon');
+      cartIcon.addEventListener('click', this.onClickOpenCartView.bind(this), false);
+    }
+  }, {
+    key: 'onClickOpenCartView',
+    value: function onClickOpenCartView(e) {
+      console.log("onClickOpenCartView is starting");
+      var cartView = new _cartView2.default(this.cart, this.allProducts.productList);
+      cartView.buildCartView();
+    }
+  }]);
+
+  return App;
+}();
+
+exports.default = App;
+; /*End of App class*/
+
+/***/ }),
+/* 3 */
+/***/ (function(module, exports, __webpack_require__) {
+
 var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_RESULT__;/**
  * EvEmitter v1.0.3
  * Lil' event emitter
@@ -1288,113 +1420,6 @@ return EvEmitter;
 
 
 /***/ }),
-/* 3 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-var _Cart = __webpack_require__(9);
-
-var _Cart2 = _interopRequireDefault(_Cart);
-
-var _main = __webpack_require__(12);
-
-var _main2 = _interopRequireDefault(_main);
-
-var _BBService = __webpack_require__(8);
-
-var _BBService2 = _interopRequireDefault(_BBService);
-
-var _product = __webpack_require__(13);
-
-var _product2 = _interopRequireDefault(_product);
-
-var _allProducts = __webpack_require__(10);
-
-var _allProducts2 = _interopRequireDefault(_allProducts);
-
-var _carouselView = __webpack_require__(4);
-
-var _carouselView2 = _interopRequireDefault(_carouselView);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-var App = function () {
-  function App() {
-    _classCallCheck(this, App);
-
-    this.allProducts = new _allProducts2.default();
-    this.init();
-  }
-
-  _createClass(App, [{
-    key: 'init',
-    value: function init() {
-      this.loadData();
-      this.addMainFunctionality();
-      //this.buildCarousel();
-    }
-  }, {
-    key: 'loadData',
-    value: function loadData() {
-      var service = new _BBService2.default("https://api.bestbuy.com/v1/products((categoryPath.id=abcat0502000))?apiKey=SXkiDh8lcFEAqyG6rDmJjlH4&format=json");
-      service.loadData(this.onDataLoaded.bind(this), this.onError);
-    }
-  }, {
-    key: 'onDataLoaded',
-    value: function onDataLoaded(data) {
-      this.allProducts.productList = this.mapDataToProducts(data);
-      var carouselView = new _carouselView2.default(this.allProducts);
-      carouselView.buildCarousel();
-    }
-  }, {
-    key: 'mapDataToProducts',
-    value: function mapDataToProducts(data) {
-
-      var dataArray = data.products;
-      var products = Array();
-
-      for (var i = 0; i < dataArray.length; i++) {
-
-        var newProduct = new _product2.default();
-
-        newProduct.sku = dataArray[i].sku;
-        newProduct.name = dataArray[i].name;
-        newProduct.image = dataArray[i].image;
-        newProduct.longDescription = dataArray[i].longDescription;
-        newProduct.shortDescription = dataArray[i].shortDescription;
-        newProduct.regularPrice = dataArray[i].regularPrice;
-
-        products.push(newProduct);
-      }
-      return products;
-    }
-  }, {
-    key: 'onError',
-    value: function onError() {}
-  }, {
-    key: 'addMainFunctionality',
-    value: function addMainFunctionality() {
-      var mainFunctionality = new _main2.default();
-    }
-  }]);
-
-  return App;
-}();
-
-exports.default = App;
-; /*End of App class*/
-
-/***/ }),
 /* 4 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -1407,23 +1432,29 @@ Object.defineProperty(exports, "__esModule", {
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _flickity = __webpack_require__(5);
+var _flickity = __webpack_require__(6);
 
 var _flickity2 = _interopRequireDefault(_flickity);
 
-var _productView = __webpack_require__(14);
+var _productView = __webpack_require__(16);
 
 var _productView2 = _interopRequireDefault(_productView);
+
+var _App = __webpack_require__(2);
+
+var _App2 = _interopRequireDefault(_App);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 var CarouselView = function () {
-  function CarouselView(products) {
+  function CarouselView(app, products) {
     _classCallCheck(this, CarouselView);
 
     this.products = products;
+    this.app = app;
+    this.cart = app.cart;
   }
 
   _createClass(CarouselView, [{
@@ -1506,15 +1537,30 @@ var CarouselView = function () {
       newCartButton.setAttribute("class", "cart-btn");
       newCartButton.setAttribute("id", 'cartCarousel' + currentProduct["sku"]);
       newCartButton.appendChild(document.createTextNode("ADD TO CART"));
-      //newCartButton.addEventListener("click",this.onClickAddToCart.bind(this),false);
+      newCartButton.addEventListener("click", this.onClickAddToCart.bind(this), false);
       return newCartButton;
+    }
+  }, {
+    key: 'onClickAddToCart',
+    value: function onClickAddToCart(e) {
+      var currentProduct = this.findProductBySku(e.target.getAttribute("data-sku"));
+      this.cart.addItemtoCart(currentProduct, 1);
     }
   }, {
     key: 'onClickOpenQuickView',
     value: function onClickOpenQuickView(e) {
-      //console.log(e.target.getAttribute("data-sku"));
-      var productView = new _productView2.default(e.target.getAttribute("data-sku"), this.products.productList);
+      var currentProduct = this.findProductBySku(e.target.getAttribute("data-sku"));
+      var productView = new _productView2.default(this.app, currentProduct);
       productView.buildProductView();
+    }
+  }, {
+    key: 'findProductBySku',
+    value: function findProductBySku(sku) {
+      for (var i = 0; i < this.products.productList.length; i++) {
+        if (this.products.productList[i].sku == sku) {
+          return this.products.productList[i];
+        }
+      }
     }
   }, {
     key: 'createCarousel',
@@ -1537,6 +1583,101 @@ exports.default = CarouselView;
 /* 5 */
 /***/ (function(module, exports, __webpack_require__) {
 
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }(); //import CarouselView from "./carouselView";
+//import ProductView from './productView';
+
+
+var _App = __webpack_require__(2);
+
+var _App2 = _interopRequireDefault(_App);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+var Cart = function () {
+  function Cart(app) {
+    _classCallCheck(this, Cart);
+
+    this.ss = window.sessionStorage;
+    //this.app = app;
+    this.onQuantityChangedEventListener = null;
+  }
+
+  _createClass(Cart, [{
+    key: 'addItemtoCart',
+    value: function addItemtoCart(product, qty) {
+
+      var sessionLength = this.ss.length;
+      var allSkus = Object.keys(this.ss);
+      var match = 0;
+      var newTotalQty = 0;
+
+      if (sessionLength == 0) {
+        this.ss.setItem(product.sku, qty.toString());
+      } else {
+
+        for (var i = 0; i < allSkus.length; i++) {
+
+          if (product.sku == allSkus[i].toString()) {
+            var oldQty = this.ss.getItem(product.sku);
+            oldQty = parseInt(oldQty);
+            var newQty = oldQty + qty;
+            newQty = newQty.toString();
+            this.ss.setItem(product.sku, newQty);
+            match = 1;
+            break;
+          }
+        }
+
+        if (match == 0) {
+          //adding new SKU and qty if no match found
+          this.ss[product.sku] = qty.toString();
+        }
+        console.log(this.ss);
+      }
+
+      //adding up all items in cart
+      for (var _i = 0; _i < this.ss.length; _i++) {
+        var skuKey = this.ss.key(_i);
+        var qtyValue = this.ss.getItem(skuKey);
+        newTotalQty += parseInt(qtyValue);
+      }
+      console.log(newTotalQty);
+
+      this.notifyQuantityChanged(newTotalQty);
+    }
+  }, {
+    key: 'notifyQuantityChanged',
+    value: function notifyQuantityChanged(qty) {
+      if (this.onQuantityChangedEventListener != null) {
+        this.onQuantityChangedEventListener(qty);
+      }
+    }
+  }, {
+    key: 'getAllItems',
+    value: function getAllItems() {
+      return this.ss;
+    }
+  }]);
+
+  return Cart;
+}();
+
+exports.default = Cart;
+;
+
+/***/ }),
+/* 6 */
+/***/ (function(module, exports, __webpack_require__) {
+
 var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
  * Flickity v2.0.5
  * Touch, responsive, flickable carousels
@@ -1555,12 +1696,12 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
     // AMD
     !(__WEBPACK_AMD_DEFINE_ARRAY__ = [
       __webpack_require__(1),
-      __webpack_require__(19),
-      __webpack_require__(23),
       __webpack_require__(21),
-      __webpack_require__(22),
-      __webpack_require__(16),
-      __webpack_require__(20)
+      __webpack_require__(25),
+      __webpack_require__(23),
+      __webpack_require__(24),
+      __webpack_require__(18),
+      __webpack_require__(22)
     ], __WEBPACK_AMD_DEFINE_FACTORY__ = (factory),
 				__WEBPACK_AMD_DEFINE_RESULT__ = (typeof __WEBPACK_AMD_DEFINE_FACTORY__ === 'function' ?
 				(__WEBPACK_AMD_DEFINE_FACTORY__.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__)) : __WEBPACK_AMD_DEFINE_FACTORY__),
@@ -1585,7 +1726,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
 
 
 /***/ }),
-/* 6 */
+/* 7 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var __WEBPACK_AMD_DEFINE_RESULT__;/*!
@@ -1801,7 +1942,7 @@ return getSize;
 
 
 /***/ }),
-/* 7 */
+/* 8 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
@@ -1819,7 +1960,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
   if ( true ) {
     // AMD
     !(__WEBPACK_AMD_DEFINE_ARRAY__ = [
-      __webpack_require__(28)
+      __webpack_require__(30)
     ], __WEBPACK_AMD_DEFINE_RESULT__ = function( Unipointer ) {
       return factory( window, Unipointer );
     }.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__),
@@ -1921,7 +2062,7 @@ return TapListener;
 
 
 /***/ }),
-/* 8 */
+/* 9 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1986,53 +2127,6 @@ var BBService = function () {
 exports.default = BBService;
 
 /***/ }),
-/* 9 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-var _carouselView = __webpack_require__(4);
-
-var _carouselView2 = _interopRequireDefault(_carouselView);
-
-var _productView = __webpack_require__(14);
-
-var _productView2 = _interopRequireDefault(_productView);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-var Cart = function () {
-  function Cart(ss) {
-    _classCallCheck(this, Cart);
-
-    this.ss = window.sessionStorage;
-    console.log("creating cart");
-    console.log(this.ss);
-  }
-
-  _createClass(Cart, [{
-    key: "addItemtoCart",
-    value: function addItemtoCart() {
-      console.log("saving item in cart from cart.js");
-    }
-  }]);
-
-  return Cart;
-}();
-
-exports.default = Cart;
-;
-
-/***/ }),
 /* 10 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -2060,18 +2154,42 @@ exports.default = AllProducts;
 "use strict";
 
 
-var _App = __webpack_require__(3);
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _App = __webpack_require__(2);
 
 var _App2 = _interopRequireDefault(_App);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-//import {$,jQuery} from 'jquery';
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
-//window.$ = $;
-//window.jQuery = jQuery;
+var CartIcon = function () {
+  function CartIcon(app) {
+    _classCallCheck(this, CartIcon);
 
-var app = new _App2.default(); //importing neseccary files
+    this.cart = app.cart;
+    this.cart.onQuantityChangedEventListener = this.onQuanityChanged;
+  }
+
+  _createClass(CartIcon, [{
+    key: 'onQuanityChanged',
+    value: function onQuanityChanged(qty) {
+      console.log("qty changed to " + qty);
+      var counter = document.getElementById('counter');
+      counter.setAttribute('class', 'counter-top');
+      counter.innerHTML = qty.toString();
+    }
+  }]);
+
+  return CartIcon;
+}();
+
+exports.default = CartIcon;
 
 /***/ }),
 /* 12 */
@@ -2084,11 +2202,119 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _jquery = __webpack_require__(25);
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _cart = __webpack_require__(5);
+
+var _cart2 = _interopRequireDefault(_cart);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+var CartView = function () {
+  function CartView(cart, products) {
+    _classCallCheck(this, CartView);
+
+    this.cart = cart;
+    this.products = products;
+  }
+
+  _createClass(CartView, [{
+    key: 'buildCartView',
+    value: function buildCartView() {
+      this.buildModal();
+    }
+  }, {
+    key: 'buildModal',
+    value: function buildModal() {
+      //console.log(this.cart.getAllItems());
+      //console.log(this.products);
+      var currentProductsInSS = this.getCurrentProductsInSS(this.cart.getAllItems(), this.products);
+      var cartModal = document.getElementById('cart-modal');
+      cartModal.style.display = "block";
+
+      var span = document.getElementById('close-cart');
+      span.onclick = function (event) {
+        cartModal.style.display = "none";
+      };
+
+      window.onclick = function (event) {
+        if (event.target == cartModal) {
+          cartModal.style.display = "none";
+        }
+      };
+
+      var innerModalCart = document.getElementById('inner-modal-cart');
+
+      this.createCartModalContent(innerModalCart, currentProductsInSS);
+    }
+  }, {
+    key: 'getCurrentProductsInSS',
+    value: function getCurrentProductsInSS(cartItems, allProducts) {
+      //console.log("inside getCurrentProductsInSS");
+      var currentProductsInSS = [];
+      //console.log(allProducts);
+      //console.log(cartItems);
+      for (var key in cartItems) {
+        var sku = key;
+        var qty = cartItems[key];
+        //console.log(sku);
+        //console.log(qty);
+        for (var k = 0; k < allProducts.length; k++) {
+          if (sku == allProducts[k].sku) {
+            //console.log("match is found in " + sku);
+            allProducts[k].qty = qty;
+            currentProductsInSS.push(allProducts[k]);
+          }
+        }
+      }
+      console.log(currentProductsInSS);
+      return currentProductsInSS;
+    }
+  }, {
+    key: 'createCartModalContent',
+    value: function createCartModalContent() {}
+  }]);
+
+  return CartView;
+}();
+
+exports.default = CartView;
+
+/***/ }),
+/* 13 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var _App = __webpack_require__(2);
+
+var _App2 = _interopRequireDefault(_App);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+window.onload = function () {
+  var app = new _App2.default();
+};
+
+/***/ }),
+/* 14 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _jquery = __webpack_require__(27);
 
 var _jquery2 = _interopRequireDefault(_jquery);
 
-var _flickity = __webpack_require__(5);
+var _flickity = __webpack_require__(6);
 
 var _flickity2 = _interopRequireDefault(_flickity);
 
@@ -2131,7 +2357,7 @@ exports.default = MainFunctionality;
 ;
 
 /***/ }),
-/* 13 */
+/* 15 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2157,7 +2383,7 @@ var Product = function Product() {
 exports.default = Product;
 
 /***/ }),
-/* 14 */
+/* 16 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2173,7 +2399,7 @@ var _carouselView = __webpack_require__(4);
 
 var _carouselView2 = _interopRequireDefault(_carouselView);
 
-var _App = __webpack_require__(3);
+var _App = __webpack_require__(2);
 
 var _App2 = _interopRequireDefault(_App);
 
@@ -2182,11 +2408,11 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 var ProductView = function () {
-  function ProductView(sku, products) {
+  function ProductView(app, product) {
     _classCallCheck(this, ProductView);
 
-    this.sku = sku;
-    this.products = products;
+    this.product = product;
+    this.cart = app.cart;
   }
 
   _createClass(ProductView, [{
@@ -2212,18 +2438,8 @@ var ProductView = function () {
         }
       };
       var innerModal = document.getElementById('inner-modal');
-      var theProduct = this.findProductFromSku(this.sku);
 
-      this.createModalContent(innerModal, theProduct);
-    }
-  }, {
-    key: "findProductFromSku",
-    value: function findProductFromSku(sku) {
-      for (var i = 0; i < this.products.length; i++) {
-        if (this.products[i].sku == sku) {
-          return this.products[i];
-        }
-      }
+      this.createModalContent(innerModal, this.product);
     }
   }, {
     key: "createModalContent",
@@ -2231,8 +2447,10 @@ var ProductView = function () {
       modalContainer.innerHTML = '';
       var newSection = document.createElement("section");
       newSection.setAttribute("class", "flex");
+
       var newImage = document.createElement("img");
       newImage.src = currentProduct.image;
+      newImage.setAttribute("class", "modal-img");
       newSection.appendChild(newImage);
       modalContainer.appendChild(newSection);
 
@@ -2245,9 +2463,14 @@ var ProductView = function () {
       innerDiv.appendChild(newName);
 
       var newPrice = document.createElement("h4");
-      var productPrice = document.createTextNode(currentProduct.regularPrice);
+      var productPrice = document.createTextNode("$" + currentProduct.regularPrice);
       newPrice.appendChild(productPrice);
       innerDiv.appendChild(newPrice);
+
+      var newSku = document.createElement("h4");
+      var productSku = document.createTextNode("SKU " + currentProduct.sku);
+      newSku.appendChild(productSku);
+      innerDiv.appendChild(newSku);
 
       var newCartButton = document.createElement("button");
       newCartButton.setAttribute("data-sku", currentProduct.sku);
@@ -2268,9 +2491,7 @@ var ProductView = function () {
   }, {
     key: "onClickAddToCart",
     value: function onClickAddToCart(e) {
-      console.log("adding item to cart from productView");
-      var currentSku = e.target.getAttribute("data-sku");
-      console.log("item " + currentSku + " added to cart");
+      this.cart.addItemtoCart(this.product, 1);
     }
   }]);
 
@@ -2280,7 +2501,7 @@ var ProductView = function () {
 exports.default = ProductView;
 
 /***/ }),
-/* 15 */
+/* 17 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_RESULT__;/**
@@ -2343,7 +2564,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_RESULT__;/**
 
 
 /***/ }),
-/* 16 */
+/* 18 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;// add, remove cell
@@ -2532,7 +2753,7 @@ return Flickity;
 
 
 /***/ }),
-/* 17 */
+/* 19 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;// animate
@@ -2758,7 +2979,7 @@ return proto;
 
 
 /***/ }),
-/* 18 */
+/* 20 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;// Flickity.Cell
@@ -2768,7 +2989,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;// Flickity.Cell
   if ( true ) {
     // AMD
     !(__WEBPACK_AMD_DEFINE_ARRAY__ = [
-      __webpack_require__(6)
+      __webpack_require__(7)
     ], __WEBPACK_AMD_DEFINE_RESULT__ = function( getSize ) {
       return factory( window, getSize );
     }.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__),
@@ -2855,7 +3076,7 @@ return Cell;
 
 
 /***/ }),
-/* 19 */
+/* 21 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;// drag
@@ -2866,7 +3087,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;// drag
     // AMD
     !(__WEBPACK_AMD_DEFINE_ARRAY__ = [
       __webpack_require__(1),
-      __webpack_require__(27),
+      __webpack_require__(29),
       __webpack_require__(0)
     ], __WEBPACK_AMD_DEFINE_RESULT__ = function( Flickity, Unidragger, utils ) {
       return factory( window, Flickity, Unidragger, utils );
@@ -3246,7 +3467,7 @@ return Flickity;
 
 
 /***/ }),
-/* 20 */
+/* 22 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;// lazyload
@@ -3372,7 +3593,7 @@ return Flickity;
 
 
 /***/ }),
-/* 21 */
+/* 23 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;// page dots
@@ -3383,7 +3604,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;// page dots
     // AMD
     !(__WEBPACK_AMD_DEFINE_ARRAY__ = [
       __webpack_require__(1),
-      __webpack_require__(7),
+      __webpack_require__(8),
       __webpack_require__(0)
     ], __WEBPACK_AMD_DEFINE_RESULT__ = function( Flickity, TapListener, utils ) {
       return factory( window, Flickity, TapListener, utils );
@@ -3557,7 +3778,7 @@ return Flickity;
 
 
 /***/ }),
-/* 22 */
+/* 24 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;// player & autoPlay
@@ -3567,7 +3788,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;// player & auto
   if ( true ) {
     // AMD
     !(__WEBPACK_AMD_DEFINE_ARRAY__ = [
-      __webpack_require__(2),
+      __webpack_require__(3),
       __webpack_require__(0),
       __webpack_require__(1)
     ], __WEBPACK_AMD_DEFINE_RESULT__ = function( EvEmitter, utils, Flickity ) {
@@ -3777,7 +3998,7 @@ return Flickity;
 
 
 /***/ }),
-/* 23 */
+/* 25 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;// prev/next buttons
@@ -3788,7 +4009,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;// prev/next but
     // AMD
     !(__WEBPACK_AMD_DEFINE_ARRAY__ = [
       __webpack_require__(1),
-      __webpack_require__(7),
+      __webpack_require__(8),
       __webpack_require__(0)
     ], __WEBPACK_AMD_DEFINE_RESULT__ = function( Flickity, TapListener, utils ) {
       return factory( window, Flickity, TapListener, utils );
@@ -4004,7 +4225,7 @@ return Flickity;
 
 
 /***/ }),
-/* 24 */
+/* 26 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_RESULT__;// slide
@@ -4090,7 +4311,7 @@ return Slide;
 
 
 /***/ }),
-/* 25 */
+/* 27 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
@@ -14350,7 +14571,7 @@ return jQuery;
 
 
 /***/ }),
-/* 26 */
+/* 28 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
@@ -14367,7 +14588,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
   if ( true ) {
     // AMD
     !(__WEBPACK_AMD_DEFINE_ARRAY__ = [
-      __webpack_require__(2)
+      __webpack_require__(3)
     ], __WEBPACK_AMD_DEFINE_RESULT__ = function( EvEmitter ) {
       return factory( window, EvEmitter );
     }.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__),
@@ -14660,7 +14881,7 @@ return Unipointer;
 
 
 /***/ }),
-/* 27 */
+/* 29 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
@@ -14678,7 +14899,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
   if ( true ) {
     // AMD
     !(__WEBPACK_AMD_DEFINE_ARRAY__ = [
-      __webpack_require__(26)
+      __webpack_require__(28)
     ], __WEBPACK_AMD_DEFINE_RESULT__ = function( Unipointer ) {
       return factory( window, Unipointer );
     }.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__),
@@ -14951,7 +15172,7 @@ return Unidragger;
 
 
 /***/ }),
-/* 28 */
+/* 30 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
@@ -14968,7 +15189,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
   if ( true ) {
     // AMD
     !(__WEBPACK_AMD_DEFINE_ARRAY__ = [
-      __webpack_require__(2)
+      __webpack_require__(3)
     ], __WEBPACK_AMD_DEFINE_RESULT__ = function( EvEmitter ) {
       return factory( window, EvEmitter );
     }.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__),

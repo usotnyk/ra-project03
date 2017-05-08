@@ -179,6 +179,19 @@ nav {
   padding: 6px 0;
 }
 
+.counter-top {
+  height:20px;
+  width: 20px;
+  background-color: red;
+  position: absolute;
+  top: 40px;
+  right: 30px;
+  border-radius: 100%;
+  /*display: none;*/
+  text-align: center;
+  color: #fff;
+}
+
 .jumbotron p {
   padding: 0;
   font-size: 1.3em;
@@ -243,6 +256,11 @@ nav {
     color: black;
     text-decoration: none;
     cursor: pointer;
+}
+
+.modal-img {
+  width: 40%;
+  height: 40%;
 }
 
 /*End of Modal*/

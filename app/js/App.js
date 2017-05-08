@@ -1,4 +1,6 @@
-import Cart from './Cart';
+import Cart from './cart';
+import CartIcon from './cartIcon';
+import CartView from './cartView'
 import MainFunctionality from './main';
 import BBService from './BBService';
 import Product from './product';
@@ -8,6 +10,9 @@ import CarouselView from "./carouselView";
 export default class App {
   constructor() {
     this.allProducts = new AllProducts();
+    this.cart = new Cart();
+    this.cartIcon = new CartIcon(this);
+    //this.cartView = new CartView();
     this.init();
 
   }
@@ -15,6 +20,7 @@ export default class App {
   init() {
     this.loadData();
     this.addMainFunctionality();
+    this.registerCartViewEventListener();
     //this.buildCarousel();
 }
   loadData() {
@@ -24,7 +30,7 @@ export default class App {
 
   onDataLoaded(data) {
     this.allProducts.productList = this.mapDataToProducts(data);
-    let carouselView = new CarouselView(this.allProducts);
+    let carouselView = new CarouselView(this, this.allProducts);
     carouselView.buildCarousel();
   }
 
@@ -55,6 +61,17 @@ export default class App {
 
   addMainFunctionality() {
     let mainFunctionality = new MainFunctionality();
+  }
+
+  registerCartViewEventListener() {
+    let cartIcon = document.getElementById('cart-icon');
+    cartIcon.addEventListener('click', this.onClickOpenCartView.bind(this), false)
+  }
+
+  onClickOpenCartView(e) {
+    console.log("onClickOpenCartView is starting");
+    let cartView = new CartView(this.cart, this.allProducts.productList);
+    cartView.buildCartView();
   }
 
 }; /*End of App class*/

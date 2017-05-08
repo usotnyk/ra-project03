@@ -22,8 +22,11 @@
   <div class="flex">
    <a href=""><img src="assets/images/logo.jpeg" class="max-height" alt="logo"></a>
   </div>
-  <div  class="flex flex-order-one">
-    <a href=""><img src="assets/images/cart-icon.svg" class="max-height" alt="cart"></a>
+  <div id="cart-icon" class="flex flex-order-one">
+    <div>
+      <div id="counter"></div>
+      <img src="assets/images/cart-icon.svg" class="max-height" alt="cart">
+    </div>
   </div>
   <hr class="mobile-display-only width-hundred">
   <div class="flex center-content flex-grow-one">
@@ -103,12 +106,37 @@
 
 <!--Modals-->
 <div id="view-modal" class="modal">
-
   <!-- Modal content -->
   <div class="modal-content">
-    <span id="close">&times;</span>
+    <span id="close">CLOSE[&times;]</span>
     <div  id="inner-modal"></div>
   </div>
+</div>
+
+<div id="cart-modal" class="modal">
+  <!-- Modal content -->
+  <div class="modal-content">
+    <span id="close-cart">CLOSE[&times;]</span>
+    <h1 class="center-text">YOUR CART</h1>
+    <div  id="inner-modal-cart">
+      <!--<section class="flex wrap">
+        <img src="">
+        <hr>
+        <h3>Name</h3>
+        <hr>
+        <h4>Price</h4>
+        <hr>
+        <div>QTY</div>
+        <div class="flex flex-column">
+          <button class="view-btn">UPDATE</button>
+          <button class="view-btn">REMOVE</button>
+        </div>
+      </section> -->
+
+    </div>
+    <button class="cart-btn">CHECKOUT</button>
+  </div>
+</div>
 
   <!--End of Main!-->
 

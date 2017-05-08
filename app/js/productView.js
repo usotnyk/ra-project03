@@ -2,9 +2,9 @@ import CarouselView from "./carouselView";
 import App from "./App" 
 
 export default class ProductView {
-  constructor(sku, products) {
-      this.sku = sku;
-      this.products = products;
+  constructor(app, product) {
+      this.product = product;
+      this.cart = app.cart;
   }
 
   buildProductView(){
@@ -27,25 +27,20 @@ export default class ProductView {
       }
     }
     let innerModal = document.getElementById('inner-modal');
-    let theProduct = this.findProductFromSku(this.sku);
 
-    this.createModalContent(innerModal, theProduct);
+    this.createModalContent(innerModal, this.product);
   }
 
-  findProductFromSku(sku) {
-    for (let i=0; i<this.products.length; i++) {
-      if (this.products[i].sku == sku) {
-        return this.products[i];
-      }
-    }
-  }
+  
 
   createModalContent(modalContainer, currentProduct) {
     modalContainer.innerHTML ='';
     let newSection = document.createElement("section");
     newSection.setAttribute("class", "flex");
+
     let newImage = document.createElement("img");
     newImage.src = currentProduct.image;
+    newImage.setAttribute("class", "modal-img");
     newSection.appendChild(newImage);
     modalContainer.appendChild(newSection);
 
@@ -58,9 +53,14 @@ export default class ProductView {
     innerDiv.appendChild(newName);
 
     let newPrice = document.createElement("h4");
-    let productPrice = document.createTextNode(currentProduct.regularPrice);
+    let productPrice = document.createTextNode("$" + currentProduct.regularPrice);
     newPrice.appendChild(productPrice);
     innerDiv.appendChild(newPrice);
+
+    let newSku = document.createElement("h4");
+    let productSku = document.createTextNode("SKU " + currentProduct.sku);
+    newSku.appendChild(productSku);
+    innerDiv.appendChild(newSku);
 
     let newCartButton = document.createElement("button");
     newCartButton.setAttribute("data-sku", currentProduct.sku);
@@ -80,8 +80,6 @@ export default class ProductView {
   }
 
   onClickAddToCart(e) {
-    console.log("adding item to cart from productView");
-    let currentSku = e.target.getAttribute("data-sku");
-    console.log("item " + currentSku + " added to cart");
+    this.cart.addItemtoCart(this.product, 1);
   }
 }

@@ -1,10 +1,13 @@
 import Flickity from 'flickity';
 import ProductView from './productView'
+import App from "./App" 
 
 
 export default class CarouselView {
-  constructor(products) {
+  constructor(app, products) {
     this.products = products;
+    this.app = app;
+    this.cart = app.cart;
   }
 
   buildCarousel() {
@@ -70,7 +73,7 @@ export default class CarouselView {
     newViewButton.setAttribute("class", "view-btn");
     newViewButton.setAttribute("id", `view${currentProduct["sku"]}`);
     newViewButton.appendChild(document.createTextNode("QUICK VIEW"));
-    newViewButton.addEventListener("click",this.onClickOpenQuickView.bind(this),false);
+    newViewButton.addEventListener("click", this.onClickOpenQuickView.bind(this), false);
     return newViewButton;
 
   }
@@ -81,14 +84,27 @@ export default class CarouselView {
     newCartButton.setAttribute("class", "cart-btn");
     newCartButton.setAttribute("id", `cartCarousel${currentProduct["sku"]}`);
     newCartButton.appendChild(document.createTextNode("ADD TO CART"));
-    //newCartButton.addEventListener("click",this.onClickAddToCart.bind(this),false);
+    newCartButton.addEventListener("click",this.onClickAddToCart.bind(this),false);
     return newCartButton;
   }
 
+  onClickAddToCart(e) {
+    let currentProduct = this.findProductBySku(e.target.getAttribute("data-sku")); 
+    this.cart.addItemtoCart(currentProduct, 1);
+  }
+
   onClickOpenQuickView(e) {
-    //console.log(e.target.getAttribute("data-sku"));
-    let productView = new ProductView(e.target.getAttribute("data-sku"), this.products.productList);
+    let currentProduct = this.findProductBySku(e.target.getAttribute("data-sku"));
+    let productView = new ProductView(this.app, currentProduct);
     productView.buildProductView();
+  }
+
+  findProductBySku(sku) {
+    for (let i=0; i<this.products.productList.length; i++) {
+      if (this.products.productList[i].sku == sku) {
+        return this.products.productList[i];
+      }
+    }
   }
 
   createCarousel(node) {
