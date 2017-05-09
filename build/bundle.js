@@ -2346,6 +2346,7 @@ var CartView = function () {
   }, {
     key: 'renderCartModalContent',
     value: function renderCartModalContent(modalContainer, currentProduct) {
+      modalContainer.innerHTML = '';
       var newSection = document.createElement("section");
       newSection.setAttribute("class", "flex");
       modalContainer.appendChild(newSection);

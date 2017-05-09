@@ -82,6 +82,7 @@ export default class CartView {
   }
 
   renderCartModalContent(modalContainer, currentProduct) {
+    modalContainer.innerHTML =''
     let newSection = document.createElement("section");
     newSection.setAttribute("class", "flex");
     modalContainer.appendChild(newSection);
