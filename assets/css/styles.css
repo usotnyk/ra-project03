@@ -191,7 +191,7 @@ nav {
   top: 40px;
   right: 30px;
   border-radius: 100%;
-  /*display: none;*/
+  /*display: initial;*/
   text-align: center;
   color: #fff;
 }
@@ -347,12 +347,22 @@ nav li {
 /*Carousel*/
 
 .carousel-cell {
-  width: 200px;
+  width: 100%;
   height: auto;
+  margin: 0 20px;
 }
 
 .carousel-cell img {
-  width: 70%;
+  width: 50%;
+  height: 50%;
+}
+
+.carousel-cell h3 {
+  padding-bottom: 10px;
+}
+
+.carousel-cell h3 {
+  padding: 10px 20px
 }
 
 .view-btn {  
@@ -369,7 +379,10 @@ nav li {
 }
 
 .image-container {
-  width: 400px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 190px;
 }
 
 /*Links */
@@ -502,6 +515,10 @@ a:hover {
     width: 50%;
   }
 
+  .image-container {
+    min-height: 250px;
+}
+
   .flex-order-one {
   order: 1;
   }
@@ -516,7 +533,7 @@ a:hover {
 
   .box {
     height: 25vh;
-}
+  }
 
   .box1 {
     margin-right: 5px;
@@ -610,7 +627,7 @@ a:hover {
 
   .box {
     height: 35vh;
-}
+  }
 
   .box1 {
     margin-right: 5px;

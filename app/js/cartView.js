@@ -29,12 +29,18 @@ export default class CartView {
     }
 
     let clearCartBtn = document.getElementById("clear-cart-btn");
-    clearCartBtn.addEventListener("click", this.cart.clearCart.bind(this), false);
+    clearCartBtn.addEventListener("click", this.clearCart.bind(this), false);
     
 
     let innerModalCart = document.getElementById('inner-modal-cart');
 
     this.getEachItemInCart(innerModalCart, currentProductsInSS);
+  }
+
+  clearCart(e) {
+    this.cart.clearCart();
+    let innerModalCart = document.getElementById('inner-modal-cart');
+    this.displayEmptyCart(innerModalCart);
   }
 
   getCurrentProductsInSS (cartItems, allProducts) {

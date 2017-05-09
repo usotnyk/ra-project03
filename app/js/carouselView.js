@@ -57,7 +57,7 @@ export default class CarouselView {
   }
 
   createProductName(currentProduct) {
-    let newProductName = document.createElement("h4");
+    let newProductName = document.createElement("h3");
     let newProductNameContent = document.createTextNode(`${currentProduct["name"]}`)
     newProductName.appendChild(newProductNameContent);
     return newProductName;
@@ -65,7 +65,7 @@ export default class CarouselView {
 
   createProductPrice(currentProduct) {
     let newProductPrice = document.createElement("h3");
-    let newProductPriceContent = document.createTextNode(`${currentProduct["regularPrice"]}`);
+    let newProductPriceContent = document.createTextNode(`$ ${currentProduct["regularPrice"]}`);
     newProductPrice.appendChild(newProductPriceContent);
     return newProductPrice;
   }
@@ -116,7 +116,10 @@ export default class CarouselView {
 
     let elem = document.querySelector('.main-carousel');
     let flkty = new Flickity( elem, {
-    contain: true
+      cellAlign: 'left',
+      contain: true,
+      freeScroll: true,
+      wrapAround: true
     });
   }
 

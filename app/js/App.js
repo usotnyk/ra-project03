@@ -12,7 +12,6 @@ export default class App {
     this.allProducts = new AllProducts();
     this.cart = new Cart();
     this.cartIcon = new CartIcon(this);
-    //this.cartView = new CartView();
     this.init();
 
   }

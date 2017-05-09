@@ -1224,7 +1224,6 @@ var App = function () {
     this.allProducts = new _allProducts2.default();
     this.cart = new _cart2.default();
     this.cartIcon = new _cartIcon2.default(this);
-    //this.cartView = new CartView();
     this.init();
   }
 
@@ -1508,7 +1507,7 @@ var CarouselView = function () {
   }, {
     key: 'createProductName',
     value: function createProductName(currentProduct) {
-      var newProductName = document.createElement("h4");
+      var newProductName = document.createElement("h3");
       var newProductNameContent = document.createTextNode('' + currentProduct["name"]);
       newProductName.appendChild(newProductNameContent);
       return newProductName;
@@ -1517,7 +1516,7 @@ var CarouselView = function () {
     key: 'createProductPrice',
     value: function createProductPrice(currentProduct) {
       var newProductPrice = document.createElement("h3");
-      var newProductPriceContent = document.createTextNode('' + currentProduct["regularPrice"]);
+      var newProductPriceContent = document.createTextNode('$ ' + currentProduct["regularPrice"]);
       newProductPrice.appendChild(newProductPriceContent);
       return newProductPrice;
     }
@@ -1572,7 +1571,10 @@ var CarouselView = function () {
 
       var elem = document.querySelector('.main-carousel');
       var flkty = new _flickity2.default(elem, {
-        contain: true
+        cellAlign: 'left',
+        contain: true,
+        freeScroll: true,
+        wrapAround: true
       });
     }
   }]);
@@ -1666,11 +1668,9 @@ var Cart = function () {
     }
   }, {
     key: 'clearCart',
-    value: function clearCart(e) {
-      this.cart.ss.clear();
-      this.cart.notifyQuantityChanged(0);
-      var innerModalCart = document.getElementById('inner-modal-cart');
-      this.displayEmptyCart(innerModalCart);
+    value: function clearCart() {
+      this.ss.clear();
+      this.notifyQuantityChanged(0);
     }
   }, {
     key: 'getTotalQty',
@@ -2195,15 +2195,15 @@ var CartIcon = function () {
     _classCallCheck(this, CartIcon);
 
     this.cart = app.cart;
-    this.cart.onQuantityChangedEventListener = this.onQuanityChanged;
+    this.cart.onQuantityChangedEventListener = this.onQuanityChanged.bind(this);
     this.init();
   }
 
   _createClass(CartIcon, [{
     key: 'init',
     value: function init() {
-      console.log("this is from cartIcon");
-      console.log(this.cart.getTotalQty());
+      //console.log("this is from cartIcon");
+      //console.log(this.cart.getTotalQty());
       var qty = this.cart.getTotalQty();
       var counter = document.getElementById('counter');
       counter.setAttribute('class', 'counter-top');
@@ -2221,6 +2221,7 @@ var CartIcon = function () {
       var counter = document.getElementById('counter');
       counter.setAttribute('class', 'counter-top');
       if (qty > 0) {
+        counter.style.display = "initial";
         counter.innerHTML = qty.toString();
       } else {
         counter.style.display = "none";
@@ -2288,11 +2289,18 @@ var CartView = function () {
       };
 
       var clearCartBtn = document.getElementById("clear-cart-btn");
-      clearCartBtn.addEventListener("click", this.cart.clearCart.bind(this), false);
+      clearCartBtn.addEventListener("click", this.clearCart.bind(this), false);
 
       var innerModalCart = document.getElementById('inner-modal-cart');
 
       this.getEachItemInCart(innerModalCart, currentProductsInSS);
+    }
+  }, {
+    key: 'clearCart',
+    value: function clearCart(e) {
+      this.cart.clearCart();
+      var innerModalCart = document.getElementById('inner-modal-cart');
+      this.displayEmptyCart(innerModalCart);
     }
   }, {
     key: 'getCurrentProductsInSS',

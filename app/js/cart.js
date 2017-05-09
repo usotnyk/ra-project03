@@ -59,11 +59,9 @@ export default class Cart {
       }
     }
 
-    clearCart(e) {
-      this.cart.ss.clear();  
-      this.cart.notifyQuantityChanged(0);
-      let innerModalCart = document.getElementById('inner-modal-cart');
-      this.displayEmptyCart(innerModalCart);
+    clearCart() {
+      this.ss.clear();  
+      this.notifyQuantityChanged(0);
     }
 
     getTotalQty() {
