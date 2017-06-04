@@ -10,3 +10,5 @@ Used tech and libraries:
 - Flickity carousel (jQuery plugin)
 - Webpack
 - Babel
+- Font Awesome
+- Google Fonts
