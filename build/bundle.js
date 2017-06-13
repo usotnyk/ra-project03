@@ -1233,7 +1233,6 @@ var App = function () {
       this.loadData();
       this.addMainFunctionality();
       this.registerCartViewEventListener();
-      //this.buildCarousel();
     }
   }, {
     key: 'loadData',
@@ -1287,7 +1286,6 @@ var App = function () {
   }, {
     key: 'onClickOpenCartView',
     value: function onClickOpenCartView(e) {
-      //console.log("onClickOpenCartView is starting");
       var cartView = new _cartView2.default(this.cart, this.allProducts.productList);
       cartView.buildCartView();
     }
@@ -1525,7 +1523,7 @@ var CarouselView = function () {
     value: function createViewButton(currentProduct) {
       var newViewButton = document.createElement("button");
       newViewButton.setAttribute("data-sku", '' + currentProduct["sku"]);
-      newViewButton.setAttribute("class", "view-btn");
+      newViewButton.setAttribute("class", "btn view-btn");
       newViewButton.setAttribute("id", 'view' + currentProduct["sku"]);
       newViewButton.appendChild(document.createTextNode("QUICK VIEW"));
       newViewButton.addEventListener("click", this.onClickOpenQuickView.bind(this), false);
@@ -1536,7 +1534,7 @@ var CarouselView = function () {
     value: function createCartButton(currentProduct) {
       var newCartButton = document.createElement("button");
       newCartButton.setAttribute("data-sku", '' + currentProduct["sku"]);
-      newCartButton.setAttribute("class", "cart-btn");
+      newCartButton.setAttribute("class", "btn cart-btn");
       newCartButton.setAttribute("id", 'cartCarousel' + currentProduct["sku"]);
       newCartButton.appendChild(document.createTextNode("ADD TO CART"));
       newCartButton.addEventListener("click", this.onClickAddToCart.bind(this), false);
@@ -1612,68 +1610,75 @@ var Cart = function () {
     _classCallCheck(this, Cart);
 
     this.ss = window.sessionStorage;
-    //this.app = app;
     this.onQuantityChangedEventListener = null;
+    //this.allProducts = app.allProducts;
   }
 
   _createClass(Cart, [{
-    key: 'addItemtoCart',
+    key: "addItemtoCart",
     value: function addItemtoCart(product, qty) {
+      var _this = this;
 
-      var sessionLength = this.ss.length;
-      var allSkus = Object.keys(this.ss);
-      var match = 0;
-      var newTotalQty = 0;
-
-      if (sessionLength == 0) {
-        this.ss.setItem(product.sku, qty.toString());
-      } else {
-
-        for (var i = 0; i < allSkus.length; i++) {
-
-          if (product.sku == allSkus[i].toString()) {
-            var oldQty = this.ss.getItem(product.sku);
-            oldQty = parseInt(oldQty);
-            var newQty = oldQty + qty;
-            newQty = newQty.toString();
-            this.ss.setItem(product.sku, newQty);
-            match = 1;
-            break;
-          }
-        }
-
-        if (match == 0) {
-          //adding new SKU and qty if no match found
-          this.ss[product.sku] = qty.toString();
-        }
-        console.log(this.ss);
-      }
-
+      var newProductQty = this.getProductQty(product.sku) + parseInt(qty);
+      this.ss.setItem(product.sku, newProductQty.toString());
       //adding up all items in cart
-      for (var _i = 0; _i < this.ss.length; _i++) {
-        var skuKey = this.ss.key(_i);
-        var qtyValue = this.ss.getItem(skuKey);
-        newTotalQty += parseInt(qtyValue);
-      }
-      //console.log(newTotalQty);
+      var productSkus = Object.keys(this.ss);
+      var newTotalQty = productSkus.reduce(function (totalQty, productSku) {
+        var qty = _this.getProductQty(productSku);
+        // Calculate and return a new totalQty every time this function is called.
+        return totalQty + qty;
+      }, 0);
 
       this.notifyQuantityChanged(newTotalQty);
     }
   }, {
-    key: 'notifyQuantityChanged',
+    key: "getProductQty",
+    value: function getProductQty(sku) {
+      // Quantity of a sku from session storage.
+      var qty = this.ss.getItem(sku);
+      if (qty == null) {
+        return 0;
+      }
+      return parseInt(qty);
+    }
+  }, {
+    key: "notifyQuantityChanged",
     value: function notifyQuantityChanged(qty) {
       if (this.onQuantityChangedEventListener != null) {
         this.onQuantityChangedEventListener(qty);
       }
     }
   }, {
-    key: 'clearCart',
+    key: "clearCart",
     value: function clearCart() {
       this.ss.clear();
       this.notifyQuantityChanged(0);
     }
   }, {
-    key: 'getTotalQty',
+    key: "onClickDeleteFromCart",
+    value: function onClickDeleteFromCart(product) {
+      var sessionLength = this.ss.length;
+      var allSkus = Object.keys(this.ss);
+      this.ss.removeItem(product.sku);
+      this.notifyQuantityChanged(this.getTotalQty());
+    }
+  }, {
+    key: "onClickUpdateCart",
+    value: function onClickUpdateCart(product, qty) {
+      var sessionLength = this.ss.length;
+      var allSkus = Object.keys(this.ss);
+      if (qty == 0) {
+        this.ss.removeItem(product.sku);
+      } else {
+        console.log("qty is not 0");
+        this.ss.setItem(product.sku, qty);
+      }
+
+      console.log(this.ss);
+      this.notifyQuantityChanged(this.getTotalQty());
+    }
+  }, {
+    key: "getTotalQty",
     value: function getTotalQty() {
       var newTotalQty = 0;
       for (var i = 0; i < this.ss.length; i++) {
@@ -1684,9 +1689,27 @@ var Cart = function () {
       return newTotalQty;
     }
   }, {
-    key: 'getAllItems',
+    key: "getAllItems",
     value: function getAllItems() {
       return this.ss;
+    }
+  }, {
+    key: "getTotalPrice",
+    value: function getTotalPrice(currentProductsInSS) {
+      console.log(this.ss);
+      console.log(currentProductsInSS);
+      var price = 0;
+      var productSkus = Object.keys(this.ss);
+      var totalPrice = 0;
+
+      for (var i = 0; i < currentProductsInSS.length; i++) {
+        price = currentProductsInSS[i].regularPrice;
+        var qty = this.getProductQty(currentProductsInSS[i].sku);
+        totalPrice += price * qty;
+      }
+
+      console.log(totalPrice);
+      return Math.round(totalPrice * 100) / 100;
     }
   }]);
 
@@ -2273,6 +2296,7 @@ var CartView = function () {
     value: function buildModal() {
 
       var currentProductsInSS = this.getCurrentProductsInSS(this.cart.getAllItems(), this.products);
+      //console.log("inside cartView -> buildModal");
       var cartModal = document.getElementById('cart-modal');
       cartModal.style.display = "block";
 
@@ -2292,8 +2316,12 @@ var CartView = function () {
       clearCartBtn.addEventListener("click", this.clearCart.bind(this), false);
 
       var innerModalCart = document.getElementById('inner-modal-cart');
-
+      innerModalCart.innerHTML = "";
+      var totalPrice = this.getTotalPrice();
       this.getEachItemInCart(innerModalCart, currentProductsInSS);
+      if (totalPrice > 0) {
+        this.renderPriceTotal(innerModalCart, totalPrice);
+      }
     }
   }, {
     key: 'clearCart',
@@ -2308,7 +2336,9 @@ var CartView = function () {
       var currentProductsInSS = [];
       for (var key in cartItems) {
         var sku = key;
+        //console.log(sku);
         var qty = cartItems[key];
+        //console.log(qty);
         for (var k = 0; k < allProducts.length; k++) {
           if (sku == allProducts[k].sku) {
             allProducts[k].qty = qty;
@@ -2332,7 +2362,6 @@ var CartView = function () {
   }, {
     key: 'displayEmptyCart',
     value: function displayEmptyCart(modalContainer) {
-      console.log("empty cart message");
       modalContainer.innerHTML = '';
       var newParagraph = document.createElement("h4");
       var productParagraph = document.createTextNode("You shopping cart is currently empty!");
@@ -2346,7 +2375,7 @@ var CartView = function () {
   }, {
     key: 'renderCartModalContent',
     value: function renderCartModalContent(modalContainer, currentProduct) {
-      modalContainer.innerHTML = '';
+
       var newSection = document.createElement("section");
       newSection.setAttribute("class", "flex");
       modalContainer.appendChild(newSection);
@@ -2356,25 +2385,34 @@ var CartView = function () {
       newImage.setAttribute("class", "modal-cart-img");
       newSection.appendChild(newImage);
 
-      newSection.appendChild(document.createElement("hr"));
+      //newSection.appendChild(document.createElement("hr"));
 
       var newName = document.createElement("p");
       var productName = document.createTextNode(currentProduct.name);
       newName.appendChild(productName);
       newSection.appendChild(newName);
 
-      newSection.appendChild(document.createElement("hr"));
+      //newSection.appendChild(document.createElement("hr"));
 
       var newPrice = document.createElement("h4");
       var productPrice = document.createTextNode("$" + currentProduct.regularPrice);
       newPrice.appendChild(productPrice);
       newSection.appendChild(newPrice);
 
-      newSection.appendChild(document.createElement("hr"));
+      //newSection.appendChild(document.createElement("hr"));
 
       var newQty = document.createElement("div");
-      var productQty = document.createTextNode("Quantity " + currentProduct.qty);
-      newQty.appendChild(productQty);
+      newQty.setAttribute("class", "cart-quantity-container");
+      var qtyTitleContainer = document.createElement("span");
+      var qtyTitle = document.createTextNode("Quantity");
+      qtyTitleContainer.appendChild(qtyTitle);
+
+      var inputField = document.createElement("input");
+      inputField.setAttribute("type", "number");
+      inputField.setAttribute("value", currentProduct.qty);
+      inputField.setAttribute("id", "qty" + currentProduct.sku);
+      newQty.appendChild(qtyTitleContainer);
+      newQty.appendChild(inputField);
       newSection.appendChild(newQty);
 
       var innerDiv = document.createElement("div");
@@ -2383,22 +2421,74 @@ var CartView = function () {
 
       var updateButton = document.createElement("button");
       updateButton.setAttribute("type", "button");
-      updateButton.setAttribute("class", "update-btn");
+      updateButton.setAttribute("class", "btn update-btn");
       updateButton.setAttribute("data-sku", currentProduct.sku);
       updateButton.appendChild(document.createTextNode("UPDATE"));
+      updateButton.addEventListener("click", this.onClickUpdateCart.bind(this), false);
       innerDiv.appendChild(updateButton);
 
       var removeButton = document.createElement("button");
       removeButton.setAttribute("type", "button");
-      removeButton.setAttribute("class", "remove-btn");
+      removeButton.setAttribute("class", "btn remove-btn");
       removeButton.setAttribute("data-sku", currentProduct.sku);
       removeButton.appendChild(document.createTextNode("REMOVE"));
+      removeButton.addEventListener("click", this.onClickDeleteFromCart.bind(this), false);
       innerDiv.appendChild(removeButton);
 
       var clearCartBtn = document.getElementById('clear-cart-btn');
       clearCartBtn.style.display = "initial";
       var checkoutBtn = document.getElementById('checkout-btn');
       checkoutBtn.style.display = "initial";
+    }
+  }, {
+    key: 'renderPriceTotal',
+    value: function renderPriceTotal(modalContainer, price) {
+      var newTotal = document.createElement("div");
+      newTotal.setAttribute("class", "total-container");
+
+      var newTotalTittleContainer = document.createElement("span");
+      var newTotalTitle = document.createTextNode("Total:");
+      newTotalTittleContainer.appendChild(newTotalTitle);
+      newTotal.appendChild(newTotalTittleContainer);
+
+      var newTotalQtyContainer = document.createElement("span");
+      var newTotalQty = document.createTextNode("$" + price);
+      newTotalQtyContainer.appendChild(newTotalQty);
+      newTotal.appendChild(newTotalQtyContainer);
+
+      modalContainer.appendChild(newTotal);
+    }
+  }, {
+    key: 'onClickDeleteFromCart',
+    value: function onClickDeleteFromCart(e) {
+      var currentProduct = this.findProductBySku(e.target.getAttribute("data-sku"));
+      this.cart.onClickDeleteFromCart(currentProduct);
+      this.buildModal();
+    }
+  }, {
+    key: 'onClickUpdateCart',
+    value: function onClickUpdateCart(e) {
+      var currentProductSku = e.target.getAttribute("data-sku");
+      var currentProduct = this.findProductBySku(e.target.getAttribute("data-sku"));
+      var newQty = document.getElementById("qty" + currentProductSku).value;
+      console.log(newQty);
+      this.cart.onClickUpdateCart(currentProduct, newQty);
+      this.buildModal();
+    }
+  }, {
+    key: 'findProductBySku',
+    value: function findProductBySku(sku) {
+      for (var i = 0; i < this.products.length; i++) {
+        if (this.products[i].sku == sku) {
+          return this.products[i];
+        }
+      }
+    }
+  }, {
+    key: 'getTotalPrice',
+    value: function getTotalPrice() {
+      var currentProductsInSS = this.getCurrentProductsInSS(this.cart.getAllItems(), this.products);
+      return this.cart.getTotalPrice(currentProductsInSS);
     }
   }]);
 
@@ -2580,6 +2670,7 @@ var ProductView = function () {
       newSection.appendChild(newImage);
 
       var innerDiv = document.createElement("div");
+      innerDiv.setAttribute("class", "productview-info-container");
       newSection.appendChild(innerDiv);
 
       var newName = document.createElement("h3");
@@ -2592,15 +2683,10 @@ var ProductView = function () {
       newPrice.appendChild(productPrice);
       innerDiv.appendChild(newPrice);
 
-      var newSku = document.createElement("h4");
-      var productSku = document.createTextNode("SKU " + currentProduct.sku);
-      newSku.appendChild(productSku);
-      innerDiv.appendChild(newSku);
-
       var newCartButton = document.createElement("button");
       newCartButton.setAttribute("data-sku", currentProduct.sku);
       newCartButton.setAttribute("type", "button");
-      newCartButton.setAttribute("class", "cart-btn");
+      newCartButton.setAttribute("class", "btn cart-btn");
       newCartButton.setAttribute("id", "cartView" + currentProduct["sku"]);
       newCartButton.appendChild(document.createTextNode("ADD TO CART"));
       newCartButton.addEventListener("click", this.onClickAddToCart.bind(this), false);

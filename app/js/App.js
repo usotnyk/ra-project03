@@ -13,15 +13,14 @@ export default class App {
     this.cart = new Cart();
     this.cartIcon = new CartIcon(this);
     this.init();
-
   }
 
   init() {
     this.loadData();
     this.addMainFunctionality();
     this.registerCartViewEventListener();
-    //this.buildCarousel();
-}
+  }
+  
   loadData() {
     let service = new BBService("https://api.bestbuy.com/v1/products((categoryPath.id=abcat0502000))?apiKey=SXkiDh8lcFEAqyG6rDmJjlH4&format=json");
     service.loadData(this.onDataLoaded.bind(this), this.onError);
@@ -68,7 +67,6 @@ export default class App {
   }
 
   onClickOpenCartView(e) {
-    //console.log("onClickOpenCartView is starting");
     let cartView = new CartView(this.cart, this.allProducts.productList);
     cartView.buildCartView();
   }

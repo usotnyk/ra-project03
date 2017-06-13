@@ -44,8 +44,8 @@ export default class ProductView {
     newImage.setAttribute("class", "modal-img");
     newSection.appendChild(newImage);
     
-
     let innerDiv = document.createElement("div");
+    innerDiv.setAttribute("class", "productview-info-container");
     newSection.appendChild(innerDiv);
 
     let newName = document.createElement("h3");
@@ -58,15 +58,10 @@ export default class ProductView {
     newPrice.appendChild(productPrice);
     innerDiv.appendChild(newPrice);
 
-    let newSku = document.createElement("h4");
-    let productSku = document.createTextNode("SKU " + currentProduct.sku);
-    newSku.appendChild(productSku);
-    innerDiv.appendChild(newSku);
-
     let newCartButton = document.createElement("button");
     newCartButton.setAttribute("data-sku", currentProduct.sku);
     newCartButton.setAttribute("type","button");
-    newCartButton.setAttribute("class", "cart-btn");
+    newCartButton.setAttribute("class", "btn cart-btn");
     newCartButton.setAttribute("id", `cartView${currentProduct["sku"]}`)
     newCartButton.appendChild(document.createTextNode("ADD TO CART"));
     newCartButton.addEventListener("click",this.onClickAddToCart.bind(this),false);

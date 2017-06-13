@@ -12,3 +12,20 @@ Used tech and libraries:
 - Babel
 - Font Awesome
 - Google Fonts
+
+Project review week:
+
+To do:
+- bugs -> only one item is showing in shopping cart view;
+- add update item quamtity and delete item in cart functionality;
+
+June 12th, 2017
+
+- fixed bug in cart view -> inner HTML was cleared each time new item was added (deleting previously rendered content);
+- added remove item from cart and update quantity of an item functionality;
+- refactored add to cart functionality;
+
+June 13th, 2017
+- Added total that reflects total purchase price all of all products in cart.
+- Improved visual layout of cart modal and quick view modal. 
+

@@ -73,7 +73,7 @@ export default class CarouselView {
   createViewButton(currentProduct) {
     let newViewButton = document.createElement("button");
     newViewButton.setAttribute("data-sku", `${currentProduct["sku"]}`);
-    newViewButton.setAttribute("class", "view-btn");
+    newViewButton.setAttribute("class", "btn view-btn");
     newViewButton.setAttribute("id", `view${currentProduct["sku"]}`);
     newViewButton.appendChild(document.createTextNode("QUICK VIEW"));
     newViewButton.addEventListener("click", this.onClickOpenQuickView.bind(this), false);
@@ -84,7 +84,7 @@ export default class CarouselView {
   createCartButton(currentProduct) {
     let newCartButton = document.createElement("button");
     newCartButton.setAttribute("data-sku", `${currentProduct["sku"]}`);
-    newCartButton.setAttribute("class", "cart-btn");
+    newCartButton.setAttribute("class", "btn cart-btn");
     newCartButton.setAttribute("id", `cartCarousel${currentProduct["sku"]}`);
     newCartButton.appendChild(document.createTextNode("ADD TO CART"));
     newCartButton.addEventListener("click",this.onClickAddToCart.bind(this),false);
