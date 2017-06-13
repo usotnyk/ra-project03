@@ -22,7 +22,6 @@ export default class CartIcon {
   }
 
   onQuanityChanged(qty) {
-    //console.log("qty changed to " + qty);
     let counter = document.getElementById('counter');
     counter.setAttribute('class', 'counter-top');
     if(qty > 0) {
