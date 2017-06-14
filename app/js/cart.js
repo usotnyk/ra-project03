@@ -1,5 +1,3 @@
-//import CarouselView from "./carouselView";
-//import ProductView from './productView';
 import App from './App';
 
 export default class Cart {
@@ -7,7 +5,6 @@ export default class Cart {
   constructor(app){
     this.ss = window.sessionStorage;
     this.onQuantityChangedEventListener = null;
-    //this.allProducts = app.allProducts;
   }
 
   addItemtoCart(product, qty) {
@@ -58,12 +55,9 @@ export default class Cart {
     if (qty == 0) {
       this.ss.removeItem(product.sku);
     } else {
-      console.log("qty is not 0");
       this.ss.setItem(product.sku, qty);
     }
 
-
-    console.log(this.ss);
     this.notifyQuantityChanged(this.getTotalQty());
   }
 
@@ -82,8 +76,6 @@ export default class Cart {
   }
 
   getTotalPrice(currentProductsInSS) {
-    console.log(this.ss);
-    console.log(currentProductsInSS);
     let price = 0;
     const productSkus = Object.keys(this.ss);
     let totalPrice = 0;
@@ -93,8 +85,6 @@ export default class Cart {
       const qty = this.getProductQty(currentProductsInSS[i].sku);
       totalPrice +=(price * qty);
     }
-
-    console.log(totalPrice);
     return Math.round(totalPrice * 100) / 100;
   }
 
