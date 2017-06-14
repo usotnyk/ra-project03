@@ -20,18 +20,14 @@ export default class ProductView {
     span.onclick = function() {
       modal.style.display = "none";
     }
-
     window.onclick = function(event) {
       if (event.target == modal) {
         modal.style.display = "none";
       }
     }
     let innerModal = document.getElementById('inner-modal');
-
     this.createModalContent(innerModal, this.product);
   }
-
-  
 
   createModalContent(modalContainer, currentProduct) {
     modalContainer.innerHTML ='';

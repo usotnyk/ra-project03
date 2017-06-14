@@ -13,7 +13,6 @@ export default class CartView {
   buildModal() {
 
     let currentProductsInSS = this.getCurrentProductsInSS(this.cart.getAllItems(), this.products);
-    //console.log("inside cartView -> buildModal");
     let cartModal = document.getElementById('cart-modal');
     cartModal.style.display = "block";
 
@@ -21,7 +20,6 @@ export default class CartView {
     span.onclick = function(event) {
       cartModal.style.display = "none";
     }
-    //refactor above and below
 
     window.onclick = function(event) {
       if (event.target == cartModal) {
@@ -32,7 +30,6 @@ export default class CartView {
     let clearCartBtn = document.getElementById("clear-cart-btn");
     clearCartBtn.addEventListener("click", this.clearCart.bind(this), false);
     
-
     let innerModalCart = document.getElementById('inner-modal-cart');
     innerModalCart.innerHTML = "";
     let totalPrice = this.getTotalPrice();
@@ -52,9 +49,7 @@ export default class CartView {
     let currentProductsInSS = [];
     for (let key in cartItems) {
       let sku = key;
-      //console.log(sku);
       let qty = cartItems[key];
-      //console.log(qty);
       for (let k = 0; k < allProducts.length; k++) {
         if(sku == allProducts[k].sku) {
           allProducts[k].qty = qty;
@@ -98,21 +93,15 @@ export default class CartView {
     newImage.setAttribute("class", "modal-cart-img");
     newSection.appendChild(newImage);
 
-    //newSection.appendChild(document.createElement("hr"));
-
     let newName = document.createElement("p");
     let productName = document.createTextNode(currentProduct.name);
     newName.appendChild(productName);
     newSection.appendChild(newName);
 
-    //newSection.appendChild(document.createElement("hr"));
-
     let newPrice = document.createElement("h4");
     let productPrice = document.createTextNode("$" + currentProduct.regularPrice);
     newPrice.appendChild(productPrice);
     newSection.appendChild(newPrice);
-
-    //newSection.appendChild(document.createElement("hr"));
 
     let newQty = document.createElement("div");
     newQty.setAttribute("class", "cart-quantity-container");
@@ -182,7 +171,6 @@ export default class CartView {
     let currentProductSku = e.target.getAttribute("data-sku");
     let currentProduct = this.findProductBySku(e.target.getAttribute("data-sku")); 
     let newQty = document.getElementById("qty"+currentProductSku).value;
-    console.log(newQty);
     this.cart.onClickUpdateCart(currentProduct, newQty);
     this.buildModal();
 

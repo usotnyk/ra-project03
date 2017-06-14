@@ -8,8 +8,6 @@ export default class CartIcon {
   }
 
   init() {
-    //console.log("this is from cartIcon");
-    //console.log(this.cart.getTotalQty());
     let qty = this.cart.getTotalQty();
     let counter = document.getElementById('counter');
     counter.setAttribute('class', 'counter-top');
