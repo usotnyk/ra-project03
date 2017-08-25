@@ -104,6 +104,10 @@ h2 {
   align-items: center;
 }
 
+.align-center {
+  align-items: center;
+}
+
 .just-center {
   justify-content: center;
 }
@@ -298,15 +302,69 @@ nav {
   margin-right: 10px;
 }
 
+#checkout-modal .modal-content {
+  width: 90%;
+}
+
+#payment-form label {
+  position: relative;
+  color: #6A7C94;
+  font-weight: 400;
+  height: 48px;
+  line-height: 48px;
+  margin-bottom: 10px;
+  display: block;
+}
+
+#payment-form label > span {
+  float: left;
+}
+
+.field {
+  background: white;
+  box-sizing: border-box;
+/*  font-weight: 400;*/
+  font-size: 1.1em;
+  border: none;
+  border-bottom: 1px solid #CFD7DF;
+/*  border-radius: 24px;*/
+  color: #32315E;
+  outline: none;
+  height: 48px;
+  line-height: 48px;
+  padding: 0 20px;
+  cursor: text;
+  width: 75%;
+  float: right;
+}
+
+
+.field::-webkit-input-placeholder { color: #CFD7DF; }
+.field::-moz-placeholder { color: #CFD7DF; }
+.field:-ms-input-placeholder { color: #CFD7DF; }
+
+.field:focus,
+.field.StripeElement--focus {
+  border-color: #359520;
+}
+
+#card-errors {
+  color: #fa755a;
+}
+
+#success {
+  color: #359520;
+}
+
 /* The Close Button */
-#close, #close-cart {
+#close, #close-cart, #close-checkout {
     color: #aaa;
     float: right;
     font-size: 16px;
     font-weight: bold;
 }
 
-#close:hover, #close-cart:hover {
+#close:hover, #close-cart:hover, #close-checkout:hover {
     color: black;
     text-decoration: none;
     cursor: pointer;
@@ -414,6 +472,7 @@ nav li {
 
 .cart-btn {
   background: #359520;
+  font-size: 14px;
   border: none;
   margin-left: 15px;
   color: white;
@@ -426,7 +485,12 @@ nav li {
   background: #006F00;
 }
 
-.view-btn {  
+.pay-btn {
+  margin-top: 30px;
+}
+
+.view-btn { 
+  font-size: 14px; 
   background: white;
   border: 2px solid #359520;
   margin-right: 0;
@@ -582,7 +646,7 @@ a:hover {
 
   .image-container {
     min-height: 250px;
-}
+  }
 
   .flex-order-one {
   order: 1;
@@ -618,6 +682,10 @@ a:hover {
 
   .modal-content {
     width: 90%;
+  }
+
+  #checkout-modal .modal-content {
+    width: 60%;
   }
 
 }
@@ -716,6 +784,10 @@ a:hover {
 
   .modal-content {
     width: 70%;
-}
+  }
+
+  #checkout-modal .modal-content {
+    width: 40%;
+  } 
 
 }

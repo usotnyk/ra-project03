@@ -7,6 +7,7 @@
  <title>Best Buy Reseller</title>
 
  <script type="text/javascript" src="/bundle.js"></script>
+  <script src="https://js.stripe.com/v3/"></script>
 <!-- CSS!-->
 <link href="https://fonts.googleapis.com/css?family=Lato:300,400,400i,700,900|Titillium+Web:300,300i,400,400i,700,700i" rel="stylesheet">
 <link rel="stylesheet" href="assets/font-awesome-4.7.0/css/font-awesome.min.css">
@@ -122,7 +123,42 @@
     <div  id="inner-modal-cart">
     </div>
     <button id="clear-cart-btn" class="btn cart-btn">CLEAR CART</button>
-    <button id="checkout-btn" class="btn cart-btn">CHECKOUT</button>
+    <button id="checkout-btn" class="btn cart-btn">CHECKOUT   
+    </button>
+  </div>
+</div>
+
+<div id="checkout-modal" class="modal">
+  <!-- Modal content -->
+  <div class="modal-content">
+    <span id="close-checkout">CLOSE[&times;]</span>
+    <h1 class="center-text">CHECKOUT</h1>
+    <div  id="inner-modal">
+
+
+    <form id="payment-form" class="">
+      <label>
+        <span>Name</span>
+        <input name="cardholder-name" class="field" placeholder="Your Name" />
+      </label>
+      <label>
+        <span>Phone</span>
+        <input class="field" placeholder="(123) 456-7890" type="tel" />
+      </label>
+      <label>
+        <span>ZIP code</span>
+        <input name="address-zip" class="field" placeholder="94110" />
+      </label>
+      <label>
+        <span>Card</span>
+        <div id="card-element" class="field"></div>
+      </label>
+        <div id="card-errors" role="alert"></div>
+        <div id="success" style="display: none">Success! Thank you for your purchase.</div>
+      <button class="btn cart-btn pay-btn">Pay $<span id="total-pay-span"></span></button>
+    </form>
+
+    </div>
   </div>
 </div>
 

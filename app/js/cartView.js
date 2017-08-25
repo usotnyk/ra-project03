@@ -1,4 +1,5 @@
 import Cart from './cart'
+import CheckoutView from './checkoutView';
 
 export default class CartView {
   constructor(cart, products) {
@@ -6,13 +7,20 @@ export default class CartView {
     this.products = products;
 
   }
-    buildCartView(){
+    buildCartView () {
+
+    let clearCartBtn = document.getElementById("clear-cart-btn");
+    clearCartBtn.addEventListener("click", this.clearCart.bind(this), false);
+
+    let checkoutBtn = document.getElementById('checkout-btn');
+    checkoutBtn.addEventListener("click", this.onClickBuildCheckout.bind(this),false);
+    
     this.buildModal();
   }
 
   buildModal() {
-
     let currentProductsInSS = this.getCurrentProductsInSS(this.cart.getAllItems(), this.products);
+    
     let cartModal = document.getElementById('cart-modal');
     cartModal.style.display = "block";
 
@@ -27,8 +35,6 @@ export default class CartView {
       }
     }
 
-    let clearCartBtn = document.getElementById("clear-cart-btn");
-    clearCartBtn.addEventListener("click", this.clearCart.bind(this), false);
     
     let innerModalCart = document.getElementById('inner-modal-cart');
     innerModalCart.innerHTML = "";
@@ -139,9 +145,9 @@ export default class CartView {
 
     let clearCartBtn = document.getElementById('clear-cart-btn');
     clearCartBtn.style.display = "initial";
+    
     let checkoutBtn = document.getElementById('checkout-btn');
     checkoutBtn.style.display = "initial";
-
   }
 
   renderPriceTotal(modalContainer, price) {
@@ -174,6 +180,16 @@ export default class CartView {
     this.cart.onClickUpdateCart(currentProduct, newQty);
     this.buildModal();
 
+  }
+
+  onClickBuildCheckout() {
+    let totalPrice = this.getTotalPrice();
+    console.log(totalPrice);
+    //close cart modal
+    let cartModal = document.getElementById('cart-modal');
+    cartModal.style.display = "none";
+    //build checkout
+    let checkoutView = new CheckoutView(totalPrice);
   }
 
   findProductBySku(sku) {
