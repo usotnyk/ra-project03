@@ -63,7 +63,7 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 13);
+/******/ 	return __webpack_require__(__webpack_require__.s = 14);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -84,7 +84,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/**
   if ( true ) {
     // AMD
     !(__WEBPACK_AMD_DEFINE_ARRAY__ = [
-      __webpack_require__(17)
+      __webpack_require__(18)
     ], __WEBPACK_AMD_DEFINE_RESULT__ = function( matchesSelector ) {
       return factory( window, matchesSelector );
     }.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__),
@@ -325,9 +325,9 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;// Flickity main
       __webpack_require__(3),
       __webpack_require__(7),
       __webpack_require__(0),
-      __webpack_require__(20),
-      __webpack_require__(26),
-      __webpack_require__(19)
+      __webpack_require__(21),
+      __webpack_require__(27),
+      __webpack_require__(20)
     ], __WEBPACK_AMD_DEFINE_RESULT__ = function( EvEmitter, getSize, utils, Cell, Slide, animatePrototype ) {
       return factory( window, EvEmitter, getSize, utils, Cell, Slide, animatePrototype );
     }.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__),
@@ -1193,7 +1193,7 @@ var _cartView = __webpack_require__(12);
 
 var _cartView2 = _interopRequireDefault(_cartView);
 
-var _main = __webpack_require__(14);
+var _main = __webpack_require__(15);
 
 var _main2 = _interopRequireDefault(_main);
 
@@ -1201,7 +1201,7 @@ var _BBService = __webpack_require__(9);
 
 var _BBService2 = _interopRequireDefault(_BBService);
 
-var _product = __webpack_require__(15);
+var _product = __webpack_require__(16);
 
 var _product2 = _interopRequireDefault(_product);
 
@@ -1433,7 +1433,7 @@ var _flickity = __webpack_require__(6);
 
 var _flickity2 = _interopRequireDefault(_flickity);
 
-var _productView = __webpack_require__(16);
+var _productView = __webpack_require__(17);
 
 var _productView2 = _interopRequireDefault(_productView);
 
@@ -1593,9 +1593,7 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }(); //import CarouselView from "./carouselView";
-//import ProductView from './productView';
-
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 var _App = __webpack_require__(2);
 
@@ -1611,11 +1609,10 @@ var Cart = function () {
 
     this.ss = window.sessionStorage;
     this.onQuantityChangedEventListener = null;
-    //this.allProducts = app.allProducts;
   }
 
   _createClass(Cart, [{
-    key: "addItemtoCart",
+    key: 'addItemtoCart',
     value: function addItemtoCart(product, qty) {
       var _this = this;
 
@@ -1632,7 +1629,7 @@ var Cart = function () {
       this.notifyQuantityChanged(newTotalQty);
     }
   }, {
-    key: "getProductQty",
+    key: 'getProductQty',
     value: function getProductQty(sku) {
       // Quantity of a sku from session storage.
       var qty = this.ss.getItem(sku);
@@ -1642,20 +1639,20 @@ var Cart = function () {
       return parseInt(qty);
     }
   }, {
-    key: "notifyQuantityChanged",
+    key: 'notifyQuantityChanged',
     value: function notifyQuantityChanged(qty) {
       if (this.onQuantityChangedEventListener != null) {
         this.onQuantityChangedEventListener(qty);
       }
     }
   }, {
-    key: "clearCart",
+    key: 'clearCart',
     value: function clearCart() {
       this.ss.clear();
       this.notifyQuantityChanged(0);
     }
   }, {
-    key: "onClickDeleteFromCart",
+    key: 'onClickDeleteFromCart',
     value: function onClickDeleteFromCart(product) {
       var sessionLength = this.ss.length;
       var allSkus = Object.keys(this.ss);
@@ -1663,22 +1660,20 @@ var Cart = function () {
       this.notifyQuantityChanged(this.getTotalQty());
     }
   }, {
-    key: "onClickUpdateCart",
+    key: 'onClickUpdateCart',
     value: function onClickUpdateCart(product, qty) {
       var sessionLength = this.ss.length;
       var allSkus = Object.keys(this.ss);
       if (qty == 0) {
         this.ss.removeItem(product.sku);
       } else {
-        console.log("qty is not 0");
         this.ss.setItem(product.sku, qty);
       }
 
-      console.log(this.ss);
       this.notifyQuantityChanged(this.getTotalQty());
     }
   }, {
-    key: "getTotalQty",
+    key: 'getTotalQty',
     value: function getTotalQty() {
       var newTotalQty = 0;
       for (var i = 0; i < this.ss.length; i++) {
@@ -1689,15 +1684,13 @@ var Cart = function () {
       return newTotalQty;
     }
   }, {
-    key: "getAllItems",
+    key: 'getAllItems',
     value: function getAllItems() {
       return this.ss;
     }
   }, {
-    key: "getTotalPrice",
+    key: 'getTotalPrice',
     value: function getTotalPrice(currentProductsInSS) {
-      console.log(this.ss);
-      console.log(currentProductsInSS);
       var price = 0;
       var productSkus = Object.keys(this.ss);
       var totalPrice = 0;
@@ -1707,8 +1700,6 @@ var Cart = function () {
         var qty = this.getProductQty(currentProductsInSS[i].sku);
         totalPrice += price * qty;
       }
-
-      console.log(totalPrice);
       return Math.round(totalPrice * 100) / 100;
     }
   }]);
@@ -1741,12 +1732,12 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
     // AMD
     !(__WEBPACK_AMD_DEFINE_ARRAY__ = [
       __webpack_require__(1),
-      __webpack_require__(21),
-      __webpack_require__(25),
-      __webpack_require__(23),
+      __webpack_require__(22),
+      __webpack_require__(26),
       __webpack_require__(24),
-      __webpack_require__(18),
-      __webpack_require__(22)
+      __webpack_require__(25),
+      __webpack_require__(19),
+      __webpack_require__(23)
     ], __WEBPACK_AMD_DEFINE_FACTORY__ = (factory),
 				__WEBPACK_AMD_DEFINE_RESULT__ = (typeof __WEBPACK_AMD_DEFINE_FACTORY__ === 'function' ?
 				(__WEBPACK_AMD_DEFINE_FACTORY__.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__)) : __WEBPACK_AMD_DEFINE_FACTORY__),
@@ -2005,7 +1996,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
   if ( true ) {
     // AMD
     !(__WEBPACK_AMD_DEFINE_ARRAY__ = [
-      __webpack_require__(30)
+      __webpack_require__(31)
     ], __WEBPACK_AMD_DEFINE_RESULT__ = function( Unipointer ) {
       return factory( window, Unipointer );
     }.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__),
@@ -2225,14 +2216,11 @@ var CartIcon = function () {
   _createClass(CartIcon, [{
     key: 'init',
     value: function init() {
-      //console.log("this is from cartIcon");
-      //console.log(this.cart.getTotalQty());
       var qty = this.cart.getTotalQty();
       var counter = document.getElementById('counter');
       counter.setAttribute('class', 'counter-top');
       if (qty > 0) {
         counter.innerHTML = qty.toString();
-        console.log("counter should be visible");
       } else {
         counter.style.display = "none";
       }
@@ -2240,7 +2228,6 @@ var CartIcon = function () {
   }, {
     key: 'onQuanityChanged',
     value: function onQuanityChanged(qty) {
-      //console.log("qty changed to " + qty);
       var counter = document.getElementById('counter');
       counter.setAttribute('class', 'counter-top');
       if (qty > 0) {
@@ -2274,6 +2261,10 @@ var _cart = __webpack_require__(5);
 
 var _cart2 = _interopRequireDefault(_cart);
 
+var _checkoutView = __webpack_require__(13);
+
+var _checkoutView2 = _interopRequireDefault(_checkoutView);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -2289,14 +2280,20 @@ var CartView = function () {
   _createClass(CartView, [{
     key: 'buildCartView',
     value: function buildCartView() {
+
+      var clearCartBtn = document.getElementById("clear-cart-btn");
+      clearCartBtn.addEventListener("click", this.clearCart.bind(this), false);
+
+      var checkoutBtn = document.getElementById('checkout-btn');
+      checkoutBtn.addEventListener("click", this.onClickBuildCheckout.bind(this), false);
+
       this.buildModal();
     }
   }, {
     key: 'buildModal',
     value: function buildModal() {
-
       var currentProductsInSS = this.getCurrentProductsInSS(this.cart.getAllItems(), this.products);
-      //console.log("inside cartView -> buildModal");
+
       var cartModal = document.getElementById('cart-modal');
       cartModal.style.display = "block";
 
@@ -2304,16 +2301,12 @@ var CartView = function () {
       span.onclick = function (event) {
         cartModal.style.display = "none";
       };
-      //refactor above and below
 
       window.onclick = function (event) {
         if (event.target == cartModal) {
           cartModal.style.display = "none";
         }
       };
-
-      var clearCartBtn = document.getElementById("clear-cart-btn");
-      clearCartBtn.addEventListener("click", this.clearCart.bind(this), false);
 
       var innerModalCart = document.getElementById('inner-modal-cart');
       innerModalCart.innerHTML = "";
@@ -2336,9 +2329,7 @@ var CartView = function () {
       var currentProductsInSS = [];
       for (var key in cartItems) {
         var sku = key;
-        //console.log(sku);
         var qty = cartItems[key];
-        //console.log(qty);
         for (var k = 0; k < allProducts.length; k++) {
           if (sku == allProducts[k].sku) {
             allProducts[k].qty = qty;
@@ -2385,21 +2376,15 @@ var CartView = function () {
       newImage.setAttribute("class", "modal-cart-img");
       newSection.appendChild(newImage);
 
-      //newSection.appendChild(document.createElement("hr"));
-
       var newName = document.createElement("p");
       var productName = document.createTextNode(currentProduct.name);
       newName.appendChild(productName);
       newSection.appendChild(newName);
 
-      //newSection.appendChild(document.createElement("hr"));
-
       var newPrice = document.createElement("h4");
       var productPrice = document.createTextNode("$" + currentProduct.regularPrice);
       newPrice.appendChild(productPrice);
       newSection.appendChild(newPrice);
-
-      //newSection.appendChild(document.createElement("hr"));
 
       var newQty = document.createElement("div");
       newQty.setAttribute("class", "cart-quantity-container");
@@ -2437,6 +2422,7 @@ var CartView = function () {
 
       var clearCartBtn = document.getElementById('clear-cart-btn');
       clearCartBtn.style.display = "initial";
+
       var checkoutBtn = document.getElementById('checkout-btn');
       checkoutBtn.style.display = "initial";
     }
@@ -2471,9 +2457,19 @@ var CartView = function () {
       var currentProductSku = e.target.getAttribute("data-sku");
       var currentProduct = this.findProductBySku(e.target.getAttribute("data-sku"));
       var newQty = document.getElementById("qty" + currentProductSku).value;
-      console.log(newQty);
       this.cart.onClickUpdateCart(currentProduct, newQty);
       this.buildModal();
+    }
+  }, {
+    key: 'onClickBuildCheckout',
+    value: function onClickBuildCheckout() {
+      var totalPrice = this.getTotalPrice();
+      console.log(totalPrice);
+      //close cart modal
+      var cartModal = document.getElementById('cart-modal');
+      cartModal.style.display = "none";
+      //build checkout
+      var checkoutView = new _checkoutView2.default(totalPrice);
     }
   }, {
     key: 'findProductBySku',
@@ -2504,6 +2500,138 @@ exports.default = CartView;
 "use strict";
 
 
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+var CheckoutView = function () {
+  function CheckoutView(totalPrice) {
+    _classCallCheck(this, CheckoutView);
+
+    this.totalPrice = totalPrice;
+    this.init();
+  }
+
+  _createClass(CheckoutView, [{
+    key: 'init',
+    value: function init() {
+      this.buildCheckout();
+    }
+  }, {
+    key: 'buildCheckout',
+    value: function buildCheckout() {
+      var checkoutModal = document.getElementById('checkout-modal');
+      checkoutModal.style.display = "block";
+
+      var span = document.getElementById('close-checkout');
+      span.onclick = function (event) {
+        checkoutModal.style.display = "none";
+      };
+
+      window.onclick = function (event) {
+        if (event.target == checkoutModal) {
+          checkoutModal.style.display = "none";
+        }
+      };
+      //debugger;
+      this.renderCheckout(this.totalPrice);
+    }
+  }, {
+    key: 'renderCheckout',
+    value: function renderCheckout(totalPrice) {
+      var totalAmountSpan = document.getElementById('total-pay-span');
+      //debugger;
+      totalAmountSpan.innerHTML = "";
+      var totalAmount = document.createTextNode(totalPrice);
+      totalAmountSpan.appendChild(totalAmount);
+      this.integrateStripe();
+    }
+  }, {
+    key: 'integrateStripe',
+    value: function integrateStripe() {
+      // Create a Stripe client
+      var stripe = Stripe('pk_test_6pRNASCoBOKtIshFeQd4XMUh');
+
+      // Create an instance of Elements
+      var elements = stripe.elements();
+
+      // Custom styling can be passed to options when creating an Element.
+      // (Note that this demo uses a wider set of styles than the guide below.)
+      var style = {
+        base: {
+          color: '#32325d',
+          lineHeight: '24px',
+          fontFamily: 'inherit',
+          fontSize: '1.1em',
+          '::placeholder': {
+            color: '#aab7c4'
+          }
+        },
+        invalid: {
+          color: '#fa755a',
+          iconColor: '#fa755a'
+        }
+      };
+
+      // Create an instance of the card Element
+      var card = elements.create('card', {
+        hidePostalCode: true,
+        style: style
+      });
+
+      // Add an instance of the card Element into the `card-element` <div>
+      card.mount('#card-element');
+
+      // Handle real-time validation errors from the card Element.
+      card.addEventListener('change', function (event) {
+        var displayError = document.getElementById('card-errors');
+        if (event.error) {
+          displayError.textContent = event.error.message;
+        } else {
+          displayError.textContent = '';
+        }
+      });
+
+      // Handle form submission
+      var form = document.getElementById('payment-form');
+      form.addEventListener('submit', function (event) {
+        event.preventDefault();
+
+        stripe.createToken(card).then(function (result) {
+          if (result.error) {
+            // Inform the user if there was an error
+            var errorElement = document.getElementById('card-errors');
+            errorElement.textContent = result.error.message;
+          } else {
+            // Send the token to your server
+            //stripeTokenHandler(result.token);
+            var successContainer = document.getElementById("success");
+            successContainer.style.display = "block";
+          }
+        });
+      });
+    } //end of integrateStripe
+
+
+  }]);
+
+  return CheckoutView;
+}(); //end of class
+
+
+exports.default = CheckoutView;
+
+/***/ }),
+/* 14 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
 var _App = __webpack_require__(2);
 
 var _App2 = _interopRequireDefault(_App);
@@ -2515,7 +2643,7 @@ window.onload = function () {
 };
 
 /***/ }),
-/* 14 */
+/* 15 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2525,7 +2653,7 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _jquery = __webpack_require__(27);
+var _jquery = __webpack_require__(28);
 
 var _jquery2 = _interopRequireDefault(_jquery);
 
@@ -2572,7 +2700,7 @@ exports.default = MainFunctionality;
 ;
 
 /***/ }),
-/* 15 */
+/* 16 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2598,7 +2726,7 @@ var Product = function Product() {
 exports.default = Product;
 
 /***/ }),
-/* 16 */
+/* 17 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2646,14 +2774,12 @@ var ProductView = function () {
       span.onclick = function () {
         modal.style.display = "none";
       };
-
       window.onclick = function (event) {
         if (event.target == modal) {
           modal.style.display = "none";
         }
       };
       var innerModal = document.getElementById('inner-modal');
-
       this.createModalContent(innerModal, this.product);
     }
   }, {
@@ -2712,7 +2838,7 @@ var ProductView = function () {
 exports.default = ProductView;
 
 /***/ }),
-/* 17 */
+/* 18 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_RESULT__;/**
@@ -2775,7 +2901,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_RESULT__;/**
 
 
 /***/ }),
-/* 18 */
+/* 19 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;// add, remove cell
@@ -2964,7 +3090,7 @@ return Flickity;
 
 
 /***/ }),
-/* 19 */
+/* 20 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;// animate
@@ -3190,7 +3316,7 @@ return proto;
 
 
 /***/ }),
-/* 20 */
+/* 21 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;// Flickity.Cell
@@ -3287,7 +3413,7 @@ return Cell;
 
 
 /***/ }),
-/* 21 */
+/* 22 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;// drag
@@ -3298,7 +3424,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;// drag
     // AMD
     !(__WEBPACK_AMD_DEFINE_ARRAY__ = [
       __webpack_require__(1),
-      __webpack_require__(29),
+      __webpack_require__(30),
       __webpack_require__(0)
     ], __WEBPACK_AMD_DEFINE_RESULT__ = function( Flickity, Unidragger, utils ) {
       return factory( window, Flickity, Unidragger, utils );
@@ -3678,7 +3804,7 @@ return Flickity;
 
 
 /***/ }),
-/* 22 */
+/* 23 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;// lazyload
@@ -3804,7 +3930,7 @@ return Flickity;
 
 
 /***/ }),
-/* 23 */
+/* 24 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;// page dots
@@ -3989,7 +4115,7 @@ return Flickity;
 
 
 /***/ }),
-/* 24 */
+/* 25 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;// player & autoPlay
@@ -4209,7 +4335,7 @@ return Flickity;
 
 
 /***/ }),
-/* 25 */
+/* 26 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;// prev/next buttons
@@ -4436,7 +4562,7 @@ return Flickity;
 
 
 /***/ }),
-/* 26 */
+/* 27 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_RESULT__;// slide
@@ -4522,7 +4648,7 @@ return Slide;
 
 
 /***/ }),
-/* 27 */
+/* 28 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
@@ -14782,7 +14908,7 @@ return jQuery;
 
 
 /***/ }),
-/* 28 */
+/* 29 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
@@ -15092,7 +15218,7 @@ return Unipointer;
 
 
 /***/ }),
-/* 29 */
+/* 30 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
@@ -15110,7 +15236,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
   if ( true ) {
     // AMD
     !(__WEBPACK_AMD_DEFINE_ARRAY__ = [
-      __webpack_require__(28)
+      __webpack_require__(29)
     ], __WEBPACK_AMD_DEFINE_RESULT__ = function( Unipointer ) {
       return factory( window, Unipointer );
     }.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__),
@@ -15383,7 +15509,7 @@ return Unidragger;
 
 
 /***/ }),
-/* 30 */
+/* 31 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!

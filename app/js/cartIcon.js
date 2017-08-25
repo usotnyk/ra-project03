@@ -13,7 +13,6 @@ export default class CartIcon {
     counter.setAttribute('class', 'counter-top');
     if(qty > 0) {
       counter.innerHTML = qty.toString();
-      console.log("counter should be visible");
     } else {
       counter.style.display = "none";
     }
